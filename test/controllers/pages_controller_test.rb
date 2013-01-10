@@ -6,5 +6,6 @@ class PagesControllerTest < ActionController::TestCase
     assert_response :success
     assert_select 'title', 'Lucy Ramsbottom, Jewellery Designer Maker'
     assert_select 'h1', 'Goldfinch Jewellery Designer Maker'
+    assert_select 'nav li.current a', 'About'
   end
 end
