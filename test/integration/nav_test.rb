@@ -3,20 +3,24 @@ require 'test_helper'
 class NavTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
+  def page_title
+    first('title').native.text
+  end
+
   test "navigating around the site" do
     visit '/'
-    assert page.has_selector?('title', text: 'Lucy Ramsbottom, Jewellery Designer Maker')
+    assert_equal 'Lucy Ramsbottom, Jewellery Designer Maker', page_title
 
     click_link 'Gallery'
-    assert page.has_selector?('title', text: 'Gallery')
+    assert_equal 'Gallery', page_title
 
     click_link 'Latest News'
-    assert page.has_selector?('title', text: 'Latest News')
+    assert_equal 'Latest News', page_title
 
     click_link 'Contact'
-    assert page.has_selector?('title', text: 'Contact Me')
+    assert_equal 'Contact Me', page_title
 
     click_link 'Links'
-    assert page.has_selector?('title', text: 'Links')
+    assert_equal 'Links', page_title
   end
 end
