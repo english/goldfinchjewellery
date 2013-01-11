@@ -7,4 +7,7 @@ class PagesController < ApplicationController
 
   def latest_news
   end
+
+  def contact
+  end
 end
