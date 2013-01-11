@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Lucy Ramsbottom, Jewellery Designer Maker</title>
+  <title><%= yield :title %></title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
@@ -11,7 +11,10 @@
 <nav>
   <ol>
     <li class="current">
-      <a href="#">About</a>
+      <a href="/">About</a>
+    </li>
+    <li>
+      <a href="/gallery">Gallery</a>
     </li>
   </ol>
 </nav>
