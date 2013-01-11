@@ -39,6 +39,5 @@ gem 'jbuilder'
 # To use debugger
 # gem 'debugger'
 
-group :test do
-  gem 'capybara', '~> 2.0'
-end
+gem 'pry', group: [:development, :test]
+gem 'capybara', '~> 2.0', group: :test
