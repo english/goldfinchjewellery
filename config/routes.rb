@@ -3,6 +3,7 @@ Goldfinchjewellery::Application.routes.draw do
   get '/gallery' => 'pages#gallery'
   get '/latest-news' => 'pages#latest_news'
   get '/contact' => 'pages#contact'
+  get '/links' => 'pages#links'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
