@@ -10,21 +10,11 @@
 
 <nav>
   <ul>
-    <li class="<%= 'current' if current_page?(controller: 'pages', action: 'about') %>">
-      <%= link_to 'About', root_path %>
-    </li>
-    <li class="<%= 'current' if current_page?(controller: 'pages', action: 'gallery') %>">
-      <%= link_to 'Gallery', gallery_path %>
-    </li>
-    <li class="<%= 'current' if current_page?(controller: 'pages', action: 'latest_news') %>">
-      <%= link_to 'Latest News', latest_news_path %>
-    </li>
-    <li class="<%= 'current' if current_page?(controller: 'pages', action: 'contact') %>">
-      <%= link_to 'Contact', contact_path %>
-    </li>
-    <li class="<%= 'current' if current_page?(controller: 'pages', action: 'links') %>">
-      <%= link_to 'Links', links_path %>
-    </li>
+    <%= raw navigation 'About'       => root_path,
+                       'Gallery'     => gallery_path,
+                       'Latest News' => latest_news_path,
+                       'Contact'     => contact_path,
+                       'Links'       => links_path %>
   </ul>
 </nav>
 
