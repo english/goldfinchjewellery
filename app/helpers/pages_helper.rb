@@ -4,7 +4,7 @@ module PagesHelper
       content_tag :li, list_item_options_for(link_text) do
         link_to link_text, url
       end
-    }.join
+    }.join "\n"
   end
 
   def list_item_options_for text
