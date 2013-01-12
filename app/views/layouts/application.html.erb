@@ -9,23 +9,23 @@
 <body>
 
 <nav>
-  <ol>
+  <ul>
     <li class="current">
-      <a href="/">About</a>
+      <%= link_to 'About', root_path %>
     </li>
     <li>
-      <a href="/gallery">Gallery</a>
+      <%= link_to 'Gallery', gallery_path %>
     </li>
     <li>
-      <a href="/latest-news">Latest News</a>
+      <%= link_to 'Latest News', latest_news_path %>
     </li>
     <li>
-      <a href="/contact">Contact</a>
+      <%= link_to 'Contact', contact_path %>
     </li>
     <li>
-      <a href="/links">Links</a>
+      <%= link_to 'Links', links_path %>
     </li>
-  </ol>
+  </ul>
 </nav>
 
 <%= yield %>
