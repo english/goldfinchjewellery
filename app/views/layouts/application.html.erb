@@ -22,7 +22,7 @@
   </nav>
 </header>
 
-<div class="content">
+<div class="content <%= controller.controller_name %> <%= controller.action_name.gsub('_', '-') %>">
   <%= yield %>
 </div>
 
