@@ -8,6 +8,9 @@ module ApplicationHelper
   end
 
   def list_item_options_for path
-    { class: 'current' } if request.fullpath == path
+    first_part_of_path       = request.fullpath.split('/').second
+    path_minus_leading_slash = path[1..-1]
+
+    { class: 'current' } if first_part_of_path == path_minus_leading_slash
   end
 end
