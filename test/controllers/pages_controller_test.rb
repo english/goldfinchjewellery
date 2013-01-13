@@ -7,12 +7,6 @@ class PagesControllerTest < ActionController::TestCase
     assert_tag tag: 'img', attributes: { src: /about.jpg/ }
   end
 
-  test "gallery" do
-    get :gallery
-    assert_select 'nav li.current a', 'Gallery'
-    assert_tag tag: 'img', attributes: { src: /gallery.jpg/ }
-  end
-
   test "latest news" do
     get :latest_news
     assert_select 'nav li.current a', 'Latest News'
