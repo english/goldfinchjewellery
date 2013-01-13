@@ -1,0 +1,44 @@
+/*
+ *= require normalize
+ *= require_self
+ *= require_tree .
+ */
+
+body {
+  font: 16px/1.5 "Times New Roman", Times, serif;
+  padding-bottom: 3em;
+  margin: 0 auto;
+  width: 960px;
+  color: #666;
+}
+
+header {
+  position: relative;
+
+  nav {
+    position: absolute;
+    top: 0;
+    right: 0;
+
+    ul {
+      margin: 50px 0 0;
+    }
+
+    li {
+      list-style-type: circle;
+      padding: 8px;
+      &.current {
+        list-style-type: disc;
+      }
+    }
+
+    a {
+      text-decoration: none;
+      color: #666;
+    }
+  }
+}
+
+.content {
+  width: 460px;
+}

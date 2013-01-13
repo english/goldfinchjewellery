@@ -8,19 +8,23 @@
 </head>
 <body>
 
-<%= yield :title_image %>
+<header>
+  <%= yield :title_image %>
 
-<nav>
-  <ul>
-    <%= raw navigation 'About'       => root_path,
-                       'Gallery'     => galleries_path,
-                       'Latest News' => latest_news_path,
-                       'Contact'     => contact_path,
-                       'Links'       => links_path %>
-  </ul>
-</nav>
+  <nav>
+    <ul>
+      <%= raw navigation 'About'       => root_path,
+                         'Gallery'     => galleries_path,
+                         'Latest News' => latest_news_path,
+                         'Contact'     => contact_path,
+                         'Links'       => links_path %>
+    </ul>
+  </nav>
+</header>
 
-<%= yield %>
+<div class="content">
+  <%= yield %>
+</div>
 
 <% if Rails.env.production? %>
   <script type="text/javascript">
