@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'sass-rails',   github: 'rails/sass-rails'
+gem 'thin'
 
 group :assets do
   gem 'sprockets-rails', github: 'rails/sprockets-rails'
