@@ -1,11 +1,6 @@
 <%= content_for :title, "#{params[:id].titleize} | Gallery" %>
 <%= content_for :title_image, image_tag('gallery.jpg') %>
 
-<h1>Gallery</h1>
-<p>Click on the image for each collection.</p>
-
-<%= render 'nav' %>
-
 <ul class="gallery">
   <%= render params[:id].underscore %>
   <p><%= link_to 'Back to gallery', galleries_path %></p>
