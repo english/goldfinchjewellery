@@ -1,0 +1,31 @@
+.about { width: 460px; }
+
+.latest-news {
+  width: 620px;
+  margin: 0 auto;
+
+  h2 {
+    text-indent: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    height: 47px;
+  }
+
+  <% %w[stockists events_and_exhibitions awards press].each do |header| %>
+    #<%= header %> {
+      background: transparent url(<%= asset_path "#{header}_header.jpg" %>) no-repeat right top;
+    }
+  <% end %>
+}
+
+.contact {
+  position: relative;
+
+  img {
+    float: left;
+    margin-top: -100px;
+    margin-left: 115px;
+  }
+
+  p { padding-right: 35px; }
+}
