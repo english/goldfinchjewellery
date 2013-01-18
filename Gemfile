@@ -10,6 +10,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'sass-rails',   github: 'rails/sass-rails'
+gem 'eventmachine', github: 'ttilley/eventmachine', branch: 'as'
 gem 'thin'
 
 group :assets do
