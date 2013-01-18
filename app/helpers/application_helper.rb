@@ -1,5 +1,3 @@
-require 'pry'
-
 module ApplicationHelper
   def navigation links
     links.map { |link_text, path|
