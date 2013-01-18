@@ -1,3 +1,5 @@
+@import 'mixins';
+
 .galleries.index {
   nav {
     position: relative;
@@ -15,9 +17,7 @@
   a {
     display: block;
     height: 100%;
-    text-indent: 100%;
-    white-space: nowrap;
-    overflow: hidden;
+    @include hide-text;
   }
 
   <% %w[weather birds peace-doves commissions branches woodlands].each do |gallery| %>
