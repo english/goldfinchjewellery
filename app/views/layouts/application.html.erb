@@ -9,7 +9,9 @@
 <body>
 
 <header>
-  <%= yield :title_image %>
+  <%= link_to root_path do %>
+    <%= yield :title_image %>
+  <% end %>
 
   <nav>
     <ul>
