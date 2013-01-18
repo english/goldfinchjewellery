@@ -1,43 +1,33 @@
 source 'https://rubygems.org'
 
+ruby '2.0.0'
+
 gem 'rails',     github: 'rails/rails'
 gem 'arel',      github: 'rails/arel'
 gem 'activerecord-deprecated_finders', github: 'rails/activerecord-deprecated_finders'
 
-gem 'sqlite3'
+gem 'jquery-rails'
+gem 'turbolinks'
+gem 'jbuilder'
 
-# Gems used only for assets and not required
-# in production environments by default.
 group :assets do
   gem 'sprockets-rails', github: 'rails/sprockets-rails'
   gem 'sass-rails',   github: 'rails/sass-rails'
   gem 'coffee-rails', github: 'rails/coffee-rails'
 
-  # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-  # gem 'therubyracer', platforms: :ruby
-
   gem 'uglifier', '>= 1.0.3'
 end
 
-gem 'jquery-rails'
+group :development do
+  gem 'sqlite3'
+end
 
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
+group :production do
+  gem 'pg'
+end
 
-# Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
-gem 'jbuilder'
-
-# To use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.0.0'
-
-# Use unicorn as the app server
-# gem 'unicorn'
-
-# Deploy with Capistrano
-# gem 'capistrano', group: :development
-
-# To use debugger
-# gem 'debugger'
+group :test do
+  gem 'capybara', '~> 2.0'
+end
 
 gem 'pry', group: [:development, :test]
-gem 'capybara', '~> 2.0', group: :test
