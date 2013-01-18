@@ -31,23 +31,23 @@ class NavTest < ActionDispatch::IntegrationTest
     click_link 'Peace Doves'
     assert_equal 'Peace Doves | Gallery', page_title
 
-    click_link 'Gallery'
+    click_link 'Back to gallery'
     click_link 'Weather'
     assert_equal 'Weather | Gallery', page_title
 
-    click_link 'Gallery'
+    click_link 'Back to gallery'
     click_link 'Birds'
     assert_equal 'Birds | Gallery', page_title
 
-    click_link 'Gallery'
+    click_link 'Back to gallery'
     click_link 'Commissions'
     assert_equal 'Commissions | Gallery', page_title
 
-    click_link 'Gallery'
+    click_link 'Back to gallery'
     click_link 'Branches'
     assert_equal 'Branches | Gallery', page_title
 
-    click_link 'Gallery'
+    click_link 'Back to gallery'
     click_link 'Woodlands'
     assert_equal 'Woodlands | Gallery', page_title
   end
