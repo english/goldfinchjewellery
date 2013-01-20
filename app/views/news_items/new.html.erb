@@ -1,0 +1,9 @@
+<%= form_for @news_item do |f| %>
+  <%= f.label :category %>
+  <%= f.select :category, NewsItem::CATEGORIES %>
+
+  <%= f.label :content %>
+  <%= f.text_area :content %>
+
+  <%= f.submit "Save and Publish" %>
+<% end %>

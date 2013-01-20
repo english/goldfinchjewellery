@@ -8,7 +8,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     click_link 'Latest News'
     click_link 'New News Item'
 
-    select 'Events and Exhibitions', from: 'Category'
+    select 'Events & Exhibitions', from: 'Category'
     fill_in 'Content', with: 'Test news story'
     click_button 'Save and Publish'
 
