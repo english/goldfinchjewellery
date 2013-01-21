@@ -1,9 +1,23 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+craftsman_and_design_awards:
+  content: Craftsmanship and Design Awards 2011
+  category: Events & Exhibitions
 
-one:
-  content: MyText
-  category: MyString
+spirit_exhibition:
+  content: Spirit exhibition at Heart Gallery, The Arts Centre
+  category: Events & Exhibitions
 
-two:
-  content: MyText
-  category: MyString
+stockist:
+  content: New stockist at Red Barn Gallery, Milnthorpe
+  category: Stockists
+
+c_and_d_council:
+  content: Goldsmiths’ Craft and Design Council
+  category: Awards
+
+bja:
+  content: British Jewellers’ Association, 2002
+  category: Awards
+
+press:
+  content: In the press
+  category: Press

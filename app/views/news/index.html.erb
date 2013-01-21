@@ -1,0 +1,17 @@
+<%= content_for :title, 'Latest News' %>
+<%= content_for :title_image, image_tag('news.jpg') %>
+
+<%= link_to 'New News Item', new_news_path %>
+
+<ul class="news-items">
+  <% @categorised_news_items.each do |category, news_items| %>
+    <li class="news-category <%= category_as_class_name category %>">
+      <h2><%= category %></h2>
+      <% news_items.each do |news_item| %>
+        <article class="news-item">
+          <p><%= news_item.content %></p>
+        </article>
+      <% end %>
+    </li>
+  <% end %>
+</ul>

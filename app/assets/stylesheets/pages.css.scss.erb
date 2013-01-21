@@ -2,22 +2,6 @@
 
 .about { width: 460px; }
 
-.latest-news {
-  width: 620px;
-  margin: 0 auto;
-
-  h2 {
-    @include hide-text;
-    height: 47px;
-  }
-
-  <% %w[stockists events_and_exhibitions awards press].each do |header| %>
-    #<%= header %> {
-      background: transparent url(<%= asset_path "#{header}_header.jpg" %>) no-repeat right top;
-    }
-  <% end %>
-}
-
 .contact {
   position: relative;
 

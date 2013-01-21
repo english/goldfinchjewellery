@@ -1,0 +1,20 @@
+@import 'mixins';
+
+.news-items {
+  width: 620px;
+  margin: 0 auto;
+  list-style: none;
+
+  h2 {
+    @include hide-text;
+    height: 47px;
+  }
+
+  <% %w[stockists events-and-exhibitions awards press].each do |header| %>
+    .<%= header %> {
+      h2 {
+        background: transparent url(<%= asset_path "#{header.underscore}_header.jpg" %>) no-repeat right top;
+      }
+    }
+  <% end %>
+}
