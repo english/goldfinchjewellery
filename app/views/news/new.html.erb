@@ -1,9 +1,18 @@
+<%= content_for :title, 'Latest News' %>
+<%= content_for :title_image, image_tag('news.jpg') %>
+
 <%= form_for @news_item, url: news_path(@news_item) do |f| %>
-  <%= f.label :category %>
-  <%= f.select :category, NewsItem::CATEGORIES %>
+  <div class="input">
+    <%= f.label :category %>
+    <%= f.select :category, NewsItem::CATEGORIES %>
+  </div>
 
-  <%= f.label :content %>
-  <%= f.text_area :content %>
+  <div class="input">
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+  </div>
 
-  <%= f.submit "Save and Publish" %>
+  <div class="button">
+    <%= f.submit "Save and Publish" %>
+  </div>
 <% end %>
