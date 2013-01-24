@@ -36,7 +36,23 @@ header {
   }
 }
 
+%notice {
+  padding: 0.8em;
+  margin-bottom: 1em;
+  border: 2px solid #ddd;
+}
+
 .errors {
-  background-color: lightcoral;
-  width: 400px;
+  @extend %notice;
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4;
+  list-style: none;
+}
+
+.success {
+  @extend %notice;
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
 }

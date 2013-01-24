@@ -1,6 +1,12 @@
 <%= content_for :title, 'Latest News' %>
 <%= content_for :title_image, image_tag('news.jpg') %>
 
+<% if flash[:notice] %>
+  <div class="success">
+    <p><%= flash[:notice] %></p>
+  </div>
+<% end %>
+
 <%= link_to 'New News Item', new_news_path %>
 
 <ul class="news-items">
