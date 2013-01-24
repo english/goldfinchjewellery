@@ -20,7 +20,7 @@ class NewsControllerTest < ActionController::TestCase
     end
     assert_template 'news/new'
     assert_select '.error', "Content: can&#39;t be blank"
-    assert_select '.error', "Category: can&#39;t be blank"
+    assert_select '.error', "Category: can&#39;t be blank, is not included in the list"
   end
 
   test ":index lists all news items" do
