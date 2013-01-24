@@ -1,6 +1,7 @@
 class NewsController < ApplicationController
   def new
     @news_item = NewsItem.new
+    @categories = NewsItem::CATEGORIES
   end
 
   def create
@@ -10,6 +11,7 @@ class NewsController < ApplicationController
     if @news_item.save
       redirect_to news_index_path, notice: 'News Item saved successfully'
     else
+      @categories = NewsItem::CATEGORIES
       render :new
     end
   end

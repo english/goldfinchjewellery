@@ -15,7 +15,7 @@
 <%= form_for @news_item, url: news_path(@news_item), html: { class: 'new-news-item' } do |f| %>
   <div class="input">
     <%= f.label :category %>
-    <%= f.select :category, NewsItem::CATEGORIES %>
+    <%= f.select :category, @categories %>
   </div>
 
   <div class="input">
