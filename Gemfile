@@ -12,6 +12,7 @@ gem 'jbuilder'
 gem 'sass-rails',   github: 'rails/sass-rails'
 gem 'eventmachine', github: 'ttilley/eventmachine', branch: 'as'
 gem 'thin'
+gem 'redcarpet'
 
 group :assets do
   gem 'sprockets-rails', github: 'rails/sprockets-rails'

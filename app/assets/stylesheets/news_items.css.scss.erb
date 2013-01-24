@@ -5,14 +5,14 @@
   margin: 0 auto;
   list-style: none;
 
-  h2 {
+  .category-name {
     @include hide-text;
     height: 47px;
   }
 
   <% %w[stockists events-and-exhibitions awards press].each do |header| %>
     .<%= header %> {
-      h2 {
+      .category-name {
         background: transparent url(<%= asset_path "#{header.underscore}_header.jpg" %>) no-repeat right top;
       }
     }
