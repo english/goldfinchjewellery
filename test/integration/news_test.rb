@@ -19,7 +19,7 @@ class NewsTest < ActionDispatch::IntegrationTest
     click_link 'Latest News'
 
     assert page.has_text? 'Test news story'
-    assert page.has_selector?('article strong', text: 'news'), 'News content should have <strong> element'
-    assert_equal page.find('article img')['src'], %r{^http://s3\.amazonaws\.com.+image\.jpg$}
+    assert page.has_selector?('.news-item strong', text: 'news'), 'News content should have <strong> element'
+    assert_match %r{^http://s3-eu-west-1\.amazonaws\.com.+image\.jpg$}, page.find('.news-item img')['src']
   end
 end

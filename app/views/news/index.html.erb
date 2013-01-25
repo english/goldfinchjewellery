@@ -15,7 +15,10 @@
       <h2 class="category-name"><%= category %></h2>
       <% news_items.each do |news_item| %>
         <article class="news-item">
-          <p><%= raw Redcarpet::Markdown.new(Redcarpet::Render::XHTML).render(news_item.content) %></p>
+          <%= raw Redcarpet::Markdown.new(Redcarpet::Render::XHTML).render(news_item.content) %>
+          <% unless news_item.image_path.blank? %>
+            <img src="<%= news_item.image_path %>" alt="" />
+          <% end %>
         </article>
       <% end %>
     </li>
