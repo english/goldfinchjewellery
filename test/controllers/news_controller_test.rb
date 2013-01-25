@@ -1,7 +1,7 @@
 require 'test_helper'
 
 class NewsControllerTest < ActionController::TestCase
-  test ":new sets a new empty NewsItems" do
+  test ":new sets a new empty NewsItem" do
     get :new
     assert_kind_of NewsItem, assigns(:news_item)
     assert assigns(:news_item).new_record?
