@@ -26,7 +26,7 @@ class NewsControllerTest < ActionController::TestCase
   test ":create uploads an image to S3" do
     image = fixture_file_upload '/image.jpg', 'image/jpeg'
     post :create, news_item: { image: image, content: 'Test content', category: 'Stockists' }
-    assert_match %r{^http://s3\.amazonaws\.com.+image\.jpg$}, assigns(:news_item).image
+    assert_match %r{^http://s3\.amazonaws\.com.+image\.jpg$}, assigns(:news_item).image_path
   end
 
   test ":index lists all news items" do

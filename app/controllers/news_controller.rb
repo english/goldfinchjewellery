@@ -5,7 +5,7 @@ class NewsController < ApplicationController
   end
 
   def create
-    attributes = params.require(:news_item).permit [:category, :content, :image]
+    attributes = params.require(:news_item).permit [:category, :content, :image_path]
     @news_item = NewsItem.new attributes
 
     if @news_item.save
