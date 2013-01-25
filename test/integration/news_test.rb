@@ -10,6 +10,7 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     select 'Events & Exhibitions', from: 'Category'
     fill_in 'Content', with: 'Test **news** story'
+    attach_file 'Image', 'test/fixtures/image.jpg'
     click_button 'Save and Publish'
 
     assert page.has_selector?('.success', text: 'News Item saved successfully')
@@ -19,5 +20,6 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     assert page.has_text? 'Test news story'
     assert page.has_selector?('article strong', text: 'news'), 'News content should have <strong> element'
+    assert_equal page.find('article img')['src'], %r{^http://s3\.amazonaws\.com.+image\.jpg$}
   end
 end
