@@ -23,6 +23,12 @@ class NewsControllerTest < ActionController::TestCase
     assert_select '.error', "Category: can&#39;t be blank, is not included in the list"
   end
 
+  test ":create uploads an image to S3" do
+    image = fixture_file_upload '/image.jpg', 'image/jpeg'
+    post :create, news_item: { image: image, content: 'Test content', category: 'Stockists' }
+    assert_match %r{^http://s3\.amazonaws\.com.+image\.jpg$}, assigns(:news_item).image
+  end
+
   test ":index lists all news items" do
     get :index
     assert_select '.news-items .news-category.events-and-exhibitions .news-item', 'Craftsmanship and Design Awards 2011'
