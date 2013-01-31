@@ -5,13 +5,13 @@ class NewsController < ApplicationController
   end
 
   def create
-    if image_param.empty?
-      @news_item = NewsItem.new(news_item_params)
-    else
-      s3image = S3image.new image_param['image']
+    @news_item = NewsItem.new(news_item_params)
+
+    if @news_item.valid? && image_param
+      s3image = S3image.new image_param
       s3image.store!
 
-      @news_item = NewsItem.new(news_item_params.merge(image_path: s3image.url))
+      @news_item.image_path = s3image.url
     end
 
     if @news_item.save
@@ -33,6 +33,6 @@ class NewsController < ApplicationController
   end
 
   def image_param
-    params.require(:news_item).permit :image
+    params[:news_item][:image]
   end
 end
