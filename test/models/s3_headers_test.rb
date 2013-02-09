@@ -1,11 +1,14 @@
 require 'test_helper'
 
-class S3AuthorizationHeaderTest < ActiveSupport::TestCase
+class S3HeadersTest < ActiveSupport::TestCase
   attr_reader :subject
 
   def setup
-    @now = Time.new(2013, 02, 04, 20, 00, 00)
-    @subject = S3AuthorizationHeader.new('ACCESS_KEY_ID', 'SECRET_ACCESS_KEY_ID', 'image.jpg', @now)
+    now = Time.new(2013, 02, 04, 20, 00, 00)
+    Time.stubs(:now).returns(now)
+    image = OpenStruct.new(path: Tempfile.new('temp').path, original_filename: 'image.jpg')
+
+    @subject = S3Headers.new('ACCESS_KEY_ID', 'SECRET_ACCESS_KEY_ID', image)
   end
 
   test "prefix" do
@@ -30,12 +33,16 @@ class S3AuthorizationHeaderTest < ActiveSupport::TestCase
 	#                CanonicalizedAmzHeaders +
 	#                CanonicalizedResource;
   test "string to sign" do
-    jpg_subject = S3AuthorizationHeader.new('public', 'secret', 'image.jpg', @now)
-    png_subject = S3AuthorizationHeader.new('public', 'secret', 'image.png', @now)
-    pdf_subject = S3AuthorizationHeader.new('public', 'secret', 'image.pdf', @now)
-
+    jpg_image = OpenStruct.new(original_filename: 'image.jpg', path: 'image')
+    jpg_subject = S3Headers.new('public', 'secret', jpg_image)
     assert_equal "PUT\n\nimage/jpeg\nMon, 04 Feb 2013 20:00:00 GMT\n/goldfinchjewellery/image.jpg", jpg_subject.string_to_sign
+
+    png_image = OpenStruct.new(original_filename: 'image.png', path: 'image')
+    png_subject = S3Headers.new('public', 'secret', png_image)
     assert_equal "PUT\n\nimage/png\nMon, 04 Feb 2013 20:00:00 GMT\n/goldfinchjewellery/image.png", png_subject.string_to_sign
+
+    pdf_image = OpenStruct.new(original_filename: 'image.pdf', path: 'image')
+    pdf_subject = S3Headers.new('public', 'secret', pdf_image)
 
     exception = assert_raise(RuntimeError) { pdf_subject.string_to_sign }
     assert_equal 'Unsupported File Type', exception.message
@@ -47,7 +54,14 @@ class S3AuthorizationHeaderTest < ActiveSupport::TestCase
   end
 
   # Authorization = "AWS" + " " + AWSAccessKeyId + ":" + Signature;
-  test "value" do
-    assert_equal 'AWS ACCESS_KEY_ID:GiQsqNJn/O5wqG/HZAQpMIOqC8Y=', subject.value
+  test "auth" do
+    assert_equal 'AWS ACCESS_KEY_ID:GiQsqNJn/O5wqG/HZAQpMIOqC8Y=', subject.auth
+  end
+
+  test "to_hash" do
+    assert_equal({ 'Authorization'  => 'AWS ACCESS_KEY_ID:GiQsqNJn/O5wqG/HZAQpMIOqC8Y=',
+                   'Date'           => 'Mon, 04 Feb 2013 20:00:00 GMT',
+                   'Content-Type'   => 'image/jpeg',
+                   'Content-Length' => '0' }, subject.to_hash)
   end
 end
