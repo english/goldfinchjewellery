@@ -3,6 +3,11 @@ require File.expand_path('../../config/environment', __FILE__)
 require 'rails/test_help'
 require 'capybara/rails'
 
+VCR.configure do |config|
+  config.cassette_library_dir = 'test/vcr_cassettes'
+  config.hook_into :webmock
+end
+
 class ActiveSupport::TestCase
   ActiveRecord::Migration.check_pending!
 

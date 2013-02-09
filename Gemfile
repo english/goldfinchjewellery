@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
+#ruby '2.0.0'
 
 gem 'rails',     github: 'rails/rails'
 gem 'arel',      github: 'rails/arel'
@@ -13,7 +13,6 @@ gem 'sass-rails',   github: 'rails/sass-rails'
 gem 'eventmachine', github: 'ttilley/eventmachine', branch: 'as'
 gem 'thin'
 gem 'redcarpet'
-gem 'aws-sdk'
 
 group :assets do
   gem 'sprockets-rails', github: 'rails/sprockets-rails'
@@ -32,6 +31,9 @@ end
 
 group :test do
   gem 'capybara', '~> 2.0'
+  gem 'mocha', '~> 0.13.0', require: false
+  gem 'vcr'
+  gem 'webmock', '< 1.9'
 end
 
 gem 'pry', group: [:development, :test]

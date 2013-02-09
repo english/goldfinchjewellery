@@ -3,6 +3,14 @@ require 'test_helper'
 class NewsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
+  def setup
+    VCR.configure { |c| c.allow_http_connections_when_no_cassette = true }
+  end
+
+  def teardown
+    VCR.configure { |c| c.allow_http_connections_when_no_cassette = false }
+  end
+
   test "add news item" do
     visit '/'
     click_link 'Latest News'
@@ -20,6 +28,6 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     assert page.has_text? 'Test news story'
     assert page.has_selector?('.news-item strong', text: 'news'), 'News content should have <strong> element'
-    assert_match %r{^http://s3-eu-west-1\.amazonaws\.com.+image\.jpg$}, page.find('.news-item img')['src']
+    assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', page.find('.news-item img')['src']
   end
 end
