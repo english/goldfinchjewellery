@@ -25,7 +25,7 @@ class NewsControllerTest < ActionController::TestCase
 
   test ":create uploads an image to S3" do
     image = fixture_file_upload '/image.jpg', 'image/jpeg'
-    S3image.any_instance.expects(:store!)
+    S3Image.any_instance.expects(:store!)
 
     post :create, news_item: { image: image, content: 'Test content', category: 'Stockists' }
     assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', NewsItem.last.image_path

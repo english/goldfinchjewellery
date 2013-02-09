@@ -38,12 +38,10 @@ class S3AuthorizationHeader
   private
 
   def content_type
-    case File.extname(@path)
-    when '.jpg' then 'image/jpeg'
-    when '.png' then 'image/png'
-    else
-      raise "Unsupported File Type"
-    end
+    extension = File.extname(@path).gsub('.', '')
+    raise 'Unsupported File Type' unless %w( jpg png gif ).include?(extension)
+
+    Mime[extension].to_s
   end
 
   def base64(subject)

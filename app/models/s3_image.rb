@@ -1,4 +1,4 @@
-class S3image
+class S3Image
   def initialize file
     @original_filename = file.original_filename
     @path = file.path
@@ -10,9 +10,9 @@ class S3image
     request = Net::HTTP::Put.new('/' + @original_filename)
 
     auth = S3AuthorizationHeader.new(ENV['AWS_ACCESS_KEY_ID'], ENV['AWS_SECRET_ACCESS_KEY'], @original_filename, now)
-    request['Authorization'] = auth.value
-    request['Date'] = now.httpdate
-    request['Content-Type'] = content_type
+    request['Authorization']  = auth.value
+    request['Date']           = now.httpdate
+    request['Content-Type']   = content_type
     request['Content-Length'] = File.open(@path).lstat.size
 
     request.body_stream = File.open(@path)
