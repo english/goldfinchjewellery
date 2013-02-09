@@ -30,4 +30,19 @@ class NewsTest < ActionDispatch::IntegrationTest
     assert page.has_selector?('.news-item strong', text: 'news'), 'News content should have <strong> element'
     assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', page.find('.news-item img')['src']
   end
+
+  test "deletes news item" do
+    visit '/'
+    click_link 'Latest News'
+
+    assert page.has_content?('In the press')
+    within('.press') { click_link 'Delete' }
+
+    assert page.has_selector?('.success', text: 'News Item deleted successfully')
+
+    visit '/'
+    click_link 'Latest News'
+
+    refute page.has_content?('In the press')
+  end
 end

@@ -26,6 +26,11 @@ class NewsController < ApplicationController
     @categorised_news_items = NewsItem.categorised
   end
 
+  def destroy
+    NewsItem.find(params[:id]).destroy
+    redirect_to news_index_path, notice: 'News Item deleted successfully'
+  end
+
   private
   
   def news_item_params

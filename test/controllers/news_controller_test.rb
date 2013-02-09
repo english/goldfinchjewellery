@@ -33,8 +33,8 @@ class NewsControllerTest < ActionController::TestCase
 
   test ":index lists all news items" do
     get :index
-    assert_select '.news-items .news-category.events-and-exhibitions .news-item', 'Craftsmanship and Design Awards 2011'
-    assert_select '.news-items .news-category.stockists .news-item', 'New stockist at Red Barn Gallery, Milnthorpe'
+    assert_select '.news-items .news-category.events-and-exhibitions .news-item .content', 'Craftsmanship and Design Awards 2011'
+    assert_select '.news-items .news-category.stockists .news-item .content', 'New stockist at Red Barn Gallery, Milnthorpe'
   end
 
   test ":index sets Latest News as active" do
@@ -45,5 +45,13 @@ class NewsControllerTest < ActionController::TestCase
   test ":index uses news image for title" do
     get :index
     assert_tag tag: 'img', attributes: { src: /news.jpg/ }
+  end
+
+  test ":destroy deletes news_item" do
+    news_item = mock('news_item')
+    NewsItem.stubs(:find).returns(news_item)
+    news_item.expects(:destroy)
+
+    delete :destroy, id: 1
   end
 end
