@@ -1,18 +1,26 @@
 class S3Image
+  BUCKET = 'goldfinchjewellery'
+  REGION = 's3-eu-west-1'
+  HOST   = 'amazonaws.com'
+
   def initialize(file)
     @file = file
   end
 
   def store!
-    http = Net::HTTP.new("goldfinchjewellery.s3-eu-west-1.amazonaws.com")
+    http = Net::HTTP.new(domain)
     http.request(put_request)
   end
 
   def url
-    "http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/#{@file.original_filename}"
+    "http://#{domain}/#{@file.original_filename}"
   end
 
   private
+
+  def domain
+    "#{BUCKET}.#{REGION}.#{HOST}"
+  end
 
   def put_request
     path = '/' + @file.original_filename
