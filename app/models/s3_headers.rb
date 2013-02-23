@@ -23,7 +23,7 @@ class S3Headers
 
   def content_type
     extension = File.extname(@file.original_filename).gsub('.', '')
-    raise 'Unsupported File Type' unless %w( jpg png gif ).include?(extension)
+    raise 'Unsupported File Type' unless extension.in? %w( jpg png gif )
 
     Mime[extension].to_s
   end
