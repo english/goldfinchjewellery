@@ -17,6 +17,12 @@ class SessionsControllerTest < ActionController::TestCase
     assert_equal 'Invalid email or password', flash.alert
   end
 
+  test "sign in when already signed in" do
+    session[:user_id] = users(:someone).id
+    get :new
+    assert_redirected_to root_path
+  end
+
   test "sign out" do
     session[:user_id] = users(:someone).id
     delete :destroy, id: 'current'
