@@ -5,3 +5,5 @@ categories.each do |category, news_items|
     NewsItem.create category: category, content: content
   end
 end
+
+User.create(email: 'someone@example.org', password: 'secret')

@@ -1,14 +1,10 @@
 <%= content_for :title, 'Latest News' %>
 <%= content_for :title_image, image_tag('news.jpg') %>
 
-<% if flash[:notice] %>
-  <div class="success">
-    <p><%= flash[:notice] %></p>
-  </div>
-<% end %>
-
 <ul class="news-items">
-  <%= link_to 'New News Item', new_news_path, class: 'btn btn-primary' %>
+  <% if session[:user_id] %>
+    <%= link_to 'New News Item', new_news_path, class: 'btn btn-primary' %>
+  <% end %>
 
   <% @categorised_news_items.each do |category, news_items| %>
     <li class="news-category <%= category_as_class_name category %>">
@@ -23,7 +19,9 @@
             <%= image_tag news_item.image_path %>
           <% end %>
 
-          <%= link_to 'Delete', news_path(news_item), method: :delete, class: 'btn btn-danger' %>
+          <% if session[:user_id] %>
+            <%= link_to 'Delete', news_path(news_item), method: :delete, class: 'btn btn-danger' %>
+          <% end %>
         </article>
       <% end %>
     </li>

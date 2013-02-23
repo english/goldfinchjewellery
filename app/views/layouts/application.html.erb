@@ -20,9 +20,21 @@
                          'Latest News' => news_index_path,
                          'Contact'     => contact_path,
                          'Links'       => links_path %>
+
+      <% if session[:user_id] %>
+        <li>
+          <%= link_to 'Sign out', session_path('current'), method: 'delete' %>
+        </li>
+      <% end %>
     </ul>
   </nav>
 </header>
+
+<% if flash.notice %>
+  <div class="success">
+    <p><%= flash.notice %></p>
+  </div>
+<% end %>
 
 <div class="content <%= controller.controller_name %> <%= controller.action_name.gsub('_', '-') %>">
   <%= yield %>

@@ -1,4 +1,6 @@
 Goldfinchjewellery::Application.routes.draw do
+  resources :sessions
+  get '/sign_in' => 'sessions#new'
   resources :news
   resources :galleries, only: [:index, :show]
   root to: 'pages#about'
