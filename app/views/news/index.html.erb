@@ -2,7 +2,7 @@
 <%= content_for :title_image, image_tag('news.jpg') %>
 
 <ul class="news-items">
-  <% if session[:user_id] %>
+  <% if logged_in? %>
     <%= link_to 'New News Item', new_news_path, class: 'btn btn-primary' %>
   <% end %>
 
@@ -19,7 +19,7 @@
             <%= image_tag news_item.image_path %>
           <% end %>
 
-          <% if session[:user_id] %>
+          <% if logged_in? %>
             <%= link_to 'Delete', news_path(news_item), method: :delete, class: 'btn btn-danger' %>
           <% end %>
         </article>

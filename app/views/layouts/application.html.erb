@@ -21,7 +21,7 @@
                          'Contact'     => contact_path,
                          'Links'       => links_path %>
 
-      <% if session[:user_id] %>
+      <% if logged_in? %>
         <li>
           <%= link_to 'Sign out', session_path('current'), method: 'delete' %>
         </li>

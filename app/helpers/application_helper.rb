@@ -13,4 +13,8 @@ module ApplicationHelper
 
     { class: 'current' } if first_part_of_path == path_minus_leading_slash || (link_text == 'About' && request.fullpath == '/')
   end
+
+  def logged_in?
+    session[:user_id]
+  end
 end
