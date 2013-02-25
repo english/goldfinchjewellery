@@ -19,4 +19,11 @@ class ActiveSupport::TestCase
   fixtures :all
 
   # Add more helper methods to be used by all tests here...
+
+  def sign_in
+    visit '/sign_in'
+    fill_in 'Email', with: 'someone@example.org'
+    fill_in 'Password', with: 'secret'
+    click_button 'Sign in'
+  end
 end

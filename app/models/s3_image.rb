@@ -9,7 +9,9 @@ class S3Image
 
   def store!
     http = Net::HTTP.new(domain)
-    http.request(put_request)
+    response = http.request(put_request)
+
+    raise "Upload error" unless response.code == '200'
   end
 
   def url

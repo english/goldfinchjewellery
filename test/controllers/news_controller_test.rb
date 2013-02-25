@@ -54,4 +54,14 @@ class NewsControllerTest < ActionController::TestCase
 
     delete :destroy, id: 1
   end
+
+  test ":destroy deletes S3 image" do
+    news_item = news_items(:press)
+    news_item.update_attributes(image_path: 'http://example.org/image.jpg')
+    NewsItem.stubs(:find).returns(news_item)
+
+    S3Delete.any_instance.expects(:execute)
+
+    delete :destroy, id: 1
+  end
 end

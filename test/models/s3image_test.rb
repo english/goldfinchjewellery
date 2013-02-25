@@ -8,6 +8,8 @@ class S3ImageTest < ActiveSupport::TestCase
       subject.store!
 
       assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', subject.url
+      response = Net::HTTP.get_response(URI('http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg'))
+      assert_equal '200', response.code
     end
   end
 end
