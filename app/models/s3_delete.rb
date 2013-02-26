@@ -6,11 +6,6 @@ class S3Delete
     @date = Time.now.httpdate
   end
 
-  # DELETE /ObjectName HTTP/1.1
-  # Host: BucketName.s3.amazonaws.com
-  # Date: date
-  # Content-Length: length
-  # Authorization: signatureValue
   def execute
     http = Net::HTTP.new(@uri.host)
     request = Net::HTTP::Delete.new(@uri.path)

@@ -8,8 +8,8 @@ class NewsController < ApplicationController
     @news_item = NewsItem.new(news_item_params)
 
     if @news_item.valid? && image_param
-      s3image = S3Image.new(image_param)
-      s3image.store!
+      s3image = S3Put.new(image_param)
+      s3image.execute
 
       @news_item.image_path = s3image.url
     end

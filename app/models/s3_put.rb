@@ -1,4 +1,4 @@
-class S3Image
+class S3Put
   BUCKET = 'goldfinchjewellery'
   REGION = 's3-eu-west-1'
   HOST   = 'amazonaws.com'
@@ -7,7 +7,7 @@ class S3Image
     @file = file
   end
 
-  def store!
+  def execute
     http = Net::HTTP.new(domain)
     response = http.request(put_request)
 

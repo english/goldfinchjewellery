@@ -1,11 +1,11 @@
 require 'test_helper'
 
-class S3ImageTest < ActiveSupport::TestCase
+class S3PutTest < ActiveSupport::TestCase
   test "store! uploads the image" do
     VCR.use_cassette 'S3Image#store!', preserve_exact_body_bytes: true do
       file = Rack::Test::UploadedFile.new('test/fixtures/image.jpg', 'image/jpeg')
-      subject = S3Image.new(file)
-      subject.store!
+      subject = S3Put.new(file)
+      subject.execute
 
       assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', subject.url
       response = Net::HTTP.get_response(URI('http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg'))
