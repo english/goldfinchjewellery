@@ -27,7 +27,7 @@ end
 
 group :production do
   gem 'pg'
-  gem 'newrelic_rpm'
+  gem 'newrelic_rpm', '3.6.0.74.beta'
 end
 
 group :test do
