@@ -9,13 +9,13 @@ GIT
 
 GIT
   remote: git://github.com/rails/activerecord-deprecated_finders.git
-  revision: 5937f3e7102f9be461ce2dccaef0e4d14e92cd35
+  revision: c00788c2b7e01170f63bd9651f7efd8deb4bd4b0
   specs:
     activerecord-deprecated_finders (0.0.3)
 
 GIT
   remote: git://github.com/rails/arel.git
-  revision: 518d6b34e863d68b009674a45a1fe5105a38aee1
+  revision: 6c2e2ac6c77051c4e1d3e70f197f85df53935e76
   specs:
     arel (4.0.0.beta1.20130225132415)
 
@@ -29,7 +29,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 6a235faa2a0496b88616aaf30ee1d0a60adaa0bb
+  revision: 2357fa8ffadc7c119131fdbf8ad21117c8240d3c
   specs:
     actionmailer (4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -49,7 +49,7 @@ GIT
       activesupport (= 4.0.0.beta1)
       arel (~> 4.0.0.beta1)
     activesupport (4.0.0.beta1)
-      i18n (~> 0.6, >= 0.6.2)
+      i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
@@ -81,7 +81,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/sprockets-rails.git
-  revision: 9c3f2dbbd4a67058fb1333afbac88d2d45cc2836
+  revision: afce1e65f7c6df4ae96522b26e755915d238ff80
   specs:
     sprockets-rails (2.0.0.rc3)
       actionpack (>= 3.0)
@@ -119,7 +119,7 @@ GEM
     ffi (1.4.0)
     hike (1.2.1)
     http_parser.rb (0.5.3)
-    i18n (0.6.2)
+    i18n (0.6.4)
     jbuilder (1.0.2)
       activesupport (>= 3.0.0)
     jquery-rails (2.2.1)
@@ -133,7 +133,7 @@ GEM
     metaclass (0.0.1)
     method_source (0.8.1)
     mime-types (1.21)
-    minitest (4.6.1)
+    minitest (4.6.2)
     mocha (0.13.2)
       metaclass (~> 0.0.1)
     multi_json (1.6.1)
@@ -170,13 +170,13 @@ GEM
     thor (0.17.0)
     thread_safe (0.1.0)
       atomic
-    tilt (1.3.3)
+    tilt (1.3.5)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
     turbolinks (1.0.0)
       coffee-rails
-    tzinfo (0.3.35)
+    tzinfo (0.3.36)
     uglifier (1.3.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
