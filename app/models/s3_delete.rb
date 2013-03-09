@@ -3,13 +3,12 @@ class S3Delete
     @uri = URI(url)
     @access_key_id = ENV['AWS_ACCESS_KEY_ID']
     @secret_access_key_id = ENV['AWS_SECRET_ACCESS_KEY']
-    @date = Time.now.httpdate
   end
 
   def execute
     http = Net::HTTP.new(@uri.host)
     request = Net::HTTP::Delete.new(@uri.path)
-    request['Date'] = @date
+    request['Date'] = Time.now.httpdate
     request['Authorization'] = "AWS #{@access_key_id}:#{signature}"
     response = http.request(request)
 
@@ -19,25 +18,11 @@ class S3Delete
   private
 
   def signature
-    sha1_digest = OpenSSL::Digest::Digest.new('sha1')
-    hmac = OpenSSL::HMAC.digest(sha1_digest, @secret_access_key_id, string_to_sign)
-
-    base64(hmac)
+    S3Signature.new(@secret_access_key_id, string_to_sign).execute
   end
 
   def string_to_sign
-    http_verb    = 'DELETE'
-    content_md5  = ''
-    content_type = ''
-
-    [http_verb, content_md5, content_type, @date, canonicalized_resource].join("\n")
-  end
-
-  def base64(subject)
-    [subject].pack('m').strip
-  end
-
-  def canonicalized_resource
-    "/goldfinchjewellery#{@uri.path}"
+    canonicalized_resource = "/goldfinchjewellery#{@uri.path}"
+    S3StringToSign.new(canonicalized_resource, verb: 'DELETE').execute
   end
 end

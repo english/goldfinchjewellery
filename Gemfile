@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-#ruby '2.0.0'
+ruby '2.0.0'
 
 gem 'rails',     github: 'rails/rails'
 gem 'arel',      github: 'rails/arel'
@@ -10,7 +10,7 @@ gem 'jquery-rails'
 gem 'turbolinks'
 gem 'jbuilder'
 gem 'sass-rails',   github: 'rails/sass-rails'
-gem 'thin'
+gem 'puma'
 gem 'redcarpet'
 gem 'bcrypt-ruby'
 
