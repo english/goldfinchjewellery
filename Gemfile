@@ -13,6 +13,7 @@ gem 'sass-rails',   github: 'rails/sass-rails'
 gem 'puma'
 gem 'redcarpet'
 gem 'bcrypt-ruby'
+gem 'newrelic_rpm', '3.6.0.74.beta'
 
 group :assets do
   gem 'sprockets-rails', github: 'rails/sprockets-rails'
@@ -27,7 +28,6 @@ end
 
 group :production do
   gem 'pg'
-  gem 'newrelic_rpm', '3.6.0.74.beta'
 end
 
 group :test do
