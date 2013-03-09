@@ -8,6 +8,12 @@ GIT
       http_parser.rb (~> 0.5.3)
 
 GIT
+  remote: git://github.com/newrelic/rpm.git
+  revision: ae77f6da5c13f731d7094786ad451960920936de
+  specs:
+    newrelic_rpm (3.5.8)
+
+GIT
   remote: git://github.com/rails/activerecord-deprecated_finders.git
   revision: c00788c2b7e01170f63bd9651f7efd8deb4bd4b0
   specs:
@@ -137,7 +143,6 @@ GEM
     mocha (0.13.2)
       metaclass (~> 0.0.1)
     multi_json (1.6.1)
-    newrelic_rpm (3.6.0.74.beta)
     nokogiri (1.5.6)
     pg (0.14.1)
     polyglot (0.3.3)
@@ -201,7 +206,7 @@ DEPENDENCIES
   jbuilder
   jquery-rails
   mocha (~> 0.13.0)
-  newrelic_rpm (= 3.6.0.74.beta)
+  newrelic_rpm!
   pg
   poltergeist!
   pry
