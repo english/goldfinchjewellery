@@ -1,4 +1,6 @@
 class NewsController < ApplicationController
+  before_filter :authenticate, only: %i( create destroy )
+
   def new
     @news_item = NewsItem.new
     @categories = NewsItem::CATEGORIES
@@ -24,7 +26,7 @@ class NewsController < ApplicationController
 
   def index
     @categorised_news_items = NewsItem.categorised
-    fresh_when etag: [@categorised_news_items, session[:user_id]], public: true
+    fresh_when(etag: [@categorised_news_items, session[:user_id]], public: true)
   end
 
   def destroy
@@ -40,5 +42,9 @@ class NewsController < ApplicationController
 
   def image_param
     params[:news_item][:image]
+  end
+
+  def authenticate
+    return head(:unauthorized) unless logged_in?
   end
 end

@@ -1,6 +1,18 @@
 require 'test_helper'
 
 class NewsControllerTest < ActionController::TestCase
+  def login
+    session[:user_id] = news_items(:press).id
+  end
+
+  def logout
+    session[:user_id] = nil
+  end
+
+  def setup
+    login
+  end
+
   test ":new sets a new empty NewsItem" do
     get :new
     assert_kind_of NewsItem, assigns(:news_item)
@@ -63,5 +75,19 @@ class NewsControllerTest < ActionController::TestCase
     S3::Delete.any_instance.expects(:execute)
 
     delete :destroy, id: 1
+  end
+
+  test "cannot destroy without being logged in" do
+    logout
+
+    delete :destroy, id: news_items(:press).id
+    assert_response 401
+  end
+
+  test "cannot create without being logged in" do
+    logout
+
+    post :create, news_item: { content: 'Test news item', category: 'Stockists' }
+    assert_response 401
   end
 end
