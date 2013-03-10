@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/jonleighton/poltergeist.git
-  revision: efc6a2df6f56d638d8f0b6852b2a79961f93ec50
+  revision: 9645b52009e258921b860d3b7601d00008b22c45
   specs:
     poltergeist (1.1.0)
       capybara (~> 2.0, >= 2.0.1)
@@ -27,7 +27,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/coffee-rails.git
-  revision: 836bfceb2e9035767bbb0a8fe839a86b5936a47c
+  revision: 948fef30464235e7588e34faa513b448a00c0e6b
   specs:
     coffee-rails (4.0.0.beta1)
       coffee-script (>= 2.2.0)
@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: 2357fa8ffadc7c119131fdbf8ad21117c8240d3c
+  revision: dff4d4ad2b7b55283132eb6cf8ac27b13827624c
   specs:
     actionmailer (4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -77,7 +77,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/sass-rails.git
-  revision: 9b684bc9818b98d6c88165ed9b2ae425e2b4052f
+  revision: d435679b0fe528b954a9abd0059f975d94707574
   specs:
     sass-rails (4.0.0.beta1)
       railties (>= 4.0.0.beta, < 5.0)
@@ -108,16 +108,16 @@ GEM
       rack-test (>= 0.5.4)
       selenium-webdriver (~> 2.0)
       xpath (~> 1.0.0)
-    childprocess (0.3.8)
+    childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     coderay (1.0.9)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.5.0)
+    coffee-script-source (1.6.1)
     crack (0.3.2)
     erubis (2.7.0)
-    eventmachine (1.0.0)
+    eventmachine (1.0.3)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faye-websocket (0.4.7)
@@ -140,7 +140,7 @@ GEM
     method_source (0.8.1)
     mime-types (1.21)
     minitest (4.6.2)
-    mocha (0.13.2)
+    mocha (0.13.3)
       metaclass (~> 0.0.1)
     multi_json (1.6.1)
     nokogiri (1.5.6)
@@ -160,8 +160,8 @@ GEM
       json (~> 1.4)
     redcarpet (2.2.2)
     rubyzip (0.9.9)
-    sass (3.2.6)
-    selenium-webdriver (2.30.0)
+    sass (3.2.7)
+    selenium-webdriver (2.31.0)
       childprocess (>= 0.2.5)
       multi_json (~> 1.0)
       rubyzip
