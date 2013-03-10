@@ -25,7 +25,7 @@ class NewsControllerTest < ActionController::TestCase
 
   test ":create uploads an image to S3" do
     image = fixture_file_upload '/image.jpg', 'image/jpeg'
-    S3Put.any_instance.expects(:execute)
+    S3::Put.any_instance.expects(:execute)
 
     post :create, news_item: { image: image, content: 'Test content', category: 'Stockists' }
     assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', NewsItem.last.image_path
@@ -60,7 +60,7 @@ class NewsControllerTest < ActionController::TestCase
     news_item.update_attributes(image_path: 'http://example.org/image.jpg')
     NewsItem.stubs(:find).returns(news_item)
 
-    S3Delete.any_instance.expects(:execute)
+    S3::Delete.any_instance.expects(:execute)
 
     delete :destroy, id: 1
   end

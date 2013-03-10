@@ -12,6 +12,6 @@ class NewsItem < ActiveRecord::Base
   private
 
   def delete_image
-    S3Delete.new(image_path).execute if image_path.present?
+    S3::Delete.new(image_path).execute if image_path.present?
   end
 end
