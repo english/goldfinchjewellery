@@ -24,6 +24,7 @@ class NewsController < ApplicationController
 
   def index
     @categorised_news_items = NewsItem.categorised
+    fresh_when etag: [@categorised_news_items, session[:user_id]], public: true
   end
 
   def destroy
