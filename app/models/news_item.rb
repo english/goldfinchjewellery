@@ -9,6 +9,10 @@ class NewsItem < ActiveRecord::Base
     all.group_by &:category
   end
 
+  def self.last_updated
+    NewsItem.order('updated_at').last
+  end
+
   private
 
   def delete_image

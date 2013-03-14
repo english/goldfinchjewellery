@@ -1,5 +1,5 @@
 class PagesController < ApplicationController
-  before_filter -> { expires_in 10.minutes, public: true }
+  before_filter -> { expires_in 30.minutes, public: true }, :except => :admin
 
   def about
   end
@@ -8,5 +8,10 @@ class PagesController < ApplicationController
   end
 
   def links
+  end
+
+  def admin
+    redirect_to new_session_path unless logged_in?
+    @categorised_news_items = NewsItem.categorised
   end
 end

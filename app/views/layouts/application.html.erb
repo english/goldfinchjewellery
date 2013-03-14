@@ -20,12 +20,6 @@
                          'Latest News' => news_index_path,
                          'Contact'     => contact_path,
                          'Links'       => links_path %>
-
-      <% if logged_in? %>
-        <li>
-          <%= link_to 'Sign out', session_path('current'), method: 'delete' %>
-        </li>
-      <% end %>
     </ul>
   </nav>
 </header>

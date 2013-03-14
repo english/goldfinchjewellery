@@ -17,7 +17,7 @@ class NewsController < ApplicationController
     end
 
     if @news_item.save
-      redirect_to news_index_path, notice: 'News Item saved successfully'
+      redirect_to admin_path, notice: 'News Item saved successfully'
     else
       @categories = NewsItem::CATEGORIES
       render :new
@@ -25,13 +25,13 @@ class NewsController < ApplicationController
   end
 
   def index
+    fresh_when(NewsItem.last_updated)
     @categorised_news_items = NewsItem.categorised
-    fresh_when(etag: [@categorised_news_items, session[:user_id]], public: true)
   end
 
   def destroy
     NewsItem.find(params[:id]).destroy
-    redirect_to news_index_path, notice: 'News Item deleted successfully'
+    redirect_to admin_path, notice: 'News Item deleted successfully'
   end
 
   private

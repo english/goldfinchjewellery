@@ -14,8 +14,7 @@ class NewsTest < ActionDispatch::IntegrationTest
   end
 
   test "adds and deletes news item" do
-    visit '/'
-    click_link 'Latest News'
+    visit '/admin'
     click_link 'New News Item'
 
     select 'Events & Exhibitions', from: 'Category'
@@ -25,6 +24,8 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     assert page.has_selector?('.success', text: 'News Item saved successfully')
 
+    visit '/'
+    click_link 'Latest News'
     assert page.has_text? 'Test news story'
     assert page.has_selector?('.news-item strong', text: 'news'), 'News content should have <strong> element'
     assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', page.find('.news-item img')['src']
@@ -34,13 +35,13 @@ class NewsTest < ActionDispatch::IntegrationTest
     assert_equal '200', response.code
 
     # delete the news item
-    visit '/'
-    click_link 'Latest News'
-
+    visit '/admin'
     news_item = find(:xpath, "//article[descendant::p[contains(text(), 'Test')]]")
     news_item.click_link('Delete')
 
-    assert page.has_selector?('.success', text: 'News Item deleted successfully')
+    visit '/'
+    click_link 'Latest News'
+
     refute page.has_text?('Test news story')
     refute page.has_selector?('.news-item strong', text: 'news')
 

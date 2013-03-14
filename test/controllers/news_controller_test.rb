@@ -13,6 +13,12 @@ class NewsControllerTest < ActionController::TestCase
     login
   end
 
+  def with_caching(&block)
+    ActionController::Base.perform_caching = true
+    yield
+    ActionController::Base.perform_caching = false
+  end
+
   test ":new sets a new empty NewsItem" do
     get :new
     assert_kind_of NewsItem, assigns(:news_item)
@@ -23,7 +29,7 @@ class NewsControllerTest < ActionController::TestCase
     assert_difference 'NewsItem.count', 1 do
       post :create, news_item: { content: 'Test news item', category: 'Stockists' }
     end
-    assert_redirected_to news_index_path
+    assert_redirected_to admin_path
   end
 
   test ":create with invalid post data will redirect to :new with error message" do
@@ -59,12 +65,29 @@ class NewsControllerTest < ActionController::TestCase
     assert_tag tag: 'img', attributes: { src: /news.jpg/ }
   end
 
+  test ":index returns a 304 Not Modified if no news item has been modified" do
+    with_caching do
+      old_news = NewsItem.new(updated_at: 2.day.ago, content: 'stuff', category: 'Press')
+      NewsItem.stubs(:last_updated).returns(old_news)
+
+      @request.env['HTTP_IF_MODIFIED_SINCE'] = 1.day.ago.rfc2822
+      get :index
+      assert_equal 304, @response.status.to_i
+
+      @request.env['HTTP_IF_MODIFIED_SINCE'] = 3.day.ago.rfc2822
+      get :index
+      assert_equal 200, @response.status.to_i
+    end
+  end
+
   test ":destroy deletes news_item" do
     news_item = mock('news_item')
     NewsItem.stubs(:find).returns(news_item)
     news_item.expects(:destroy)
 
     delete :destroy, id: 1
+
+    assert_redirected_to admin_path
   end
 
   test ":destroy deletes S3 image" do

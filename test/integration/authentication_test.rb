@@ -8,28 +8,19 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   end
 
   test "Admin signs in and can edit stuff" do
-    visit '/'
-    click_link 'Latest News'
-    refute page.has_link?('Delete'), 'Page should not have any Delete links'
-    refute page.has_link?('New News Item'), 'Page should not have a New News Item link'
+    visit '/admin'
+    refute page.has_content? 'Manage News Items'
+    assert page.has_content? 'Log In'
 
     sign_in
-    assert page.has_selector?('.success', text: 'Signed in successfully')
 
-    visit '/'
-    click_link 'Latest News'
-    assert page.has_link?('Delete')
-    assert page.has_link?('New News Item')
-  end
-
-  test "Admin can sign in and then sign out" do
-    sign_in
-
-    click_link 'Latest News'
-    assert page.has_link?('Delete')
+    visit '/admin'
+    assert page.has_content? 'Manage News Items'
 
     click_link 'Sign out'
-    click_link 'Latest News'
-    refute page.has_link?('Delete')
+
+    visit '/admin'
+    refute page.has_content? 'Manage News Items'
+    assert page.has_content? 'Log In'
   end
 end
