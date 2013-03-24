@@ -1,9 +1,11 @@
-<h1>Manage News Items</h1>
-
-<%= link_to 'Sign out', session_path('current'), method: 'delete' %>
+<%= content_for :title, 'Manage News Items' %>
+<%= content_for :title_image, image_tag('news.jpg') %>
 
 <ul class="news-items">
+  <h1>Manage News Items</h1>
+
   <%= link_to 'New News Item', new_news_path, class: 'btn btn-primary' %>
+  <%= link_to 'Sign out', session_path('current'), method: 'delete', class: 'btn btn-warning' %>
 
   <% @categorised_news_items.each do |category, news_items| %>
     <li class="news-category <%= category_as_class_name category %>">
