@@ -7,7 +7,6 @@ class SessionsControllerTest < ActionController::TestCase
     post :create, email: users(:someone).email, password: 'secret'
     assert_redirected_to admin_path
     assert_equal users(:someone).id, session[:user_id]
-    assert_equal 'Signed in successfully', flash.notice
   end
 
   test "sign in with invalid password" do
@@ -28,6 +27,5 @@ class SessionsControllerTest < ActionController::TestCase
     delete :destroy, id: 'current'
     assert_nil session[:user_id]
     assert_redirected_to root_path
-    assert_equal 'Signed out successfully', flash.notice
   end
 end
