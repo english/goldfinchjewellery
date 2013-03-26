@@ -30,8 +30,8 @@ class NewsTest < ActionDispatch::IntegrationTest
     assert page.has_selector?('.news-item strong', text: 'news'), 'News content should have <strong> element'
     assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', page.find('.news-item img')['src']
 
-    uri = URI('http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg')
-    response = Net::HTTP.get_response(uri)
+    image_uri = URI('http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg')
+    response = Net::HTTP.get_response(image_uri)
     assert_equal '200', response.code
 
     # delete the news item
@@ -41,11 +41,9 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     visit '/'
     click_link 'Latest News'
-
     refute page.has_text?('Test news story')
     refute page.has_selector?('.news-item strong', text: 'news')
 
-    response = Net::HTTP.get_response(uri)
-    assert_equal '403', response.code
+    assert_equal '403', Net::HTTP.get_response(image_uri).code
   end
 end
