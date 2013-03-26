@@ -4,8 +4,6 @@ class AuthenticationTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   test "Admin signs in and can edit stuff" do
-    Capybara.reset_sessions!
-
     visit '/admin'
     refute page.has_content? 'Manage News Items'
     assert page.has_content? 'Log In'
