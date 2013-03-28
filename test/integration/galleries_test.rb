@@ -4,6 +4,12 @@ class GalleriesTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   test "creating a gallery entry" do
+    visit '/'
+    click_link 'Gallery'
+    click_link 'Peace Doves'
+    refute page.has_content? 'Test piece of jewellery description'
+    refute page.has_selector?('img[alt="Test Jewellery"]')
+
     sign_in
     visit '/admin'
     click_link 'New Piece of Jewellery'
@@ -18,6 +24,6 @@ class GalleriesTest < ActionDispatch::IntegrationTest
     click_link 'Gallery'
     click_link 'Peace Doves'
     assert page.has_content? 'Test piece of jewellery description'
-    assert page.has_selector?('img', alt: 'Test Jewellery')
+    assert page.has_selector?('img[alt="Test Jewellery"]')
   end
 end
