@@ -1,9 +1,9 @@
 class Jewellery < ActiveRecord::Base
   attr_accessor :image
 
-  validates_presence_of :image_path, :name, :description
+  validates_presence_of :image, :name, :description
 
-  before_validation :upload_image, :if => :image
+  before_save :upload_image
 
   def self.from_gallery(gallery)
     where(gallery: gallery.titleize)
