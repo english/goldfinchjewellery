@@ -1,14 +1,6 @@
 require 'test_helper'
 
 class NewsControllerTest < ActionController::TestCase
-  def login
-    session[:user_id] = news_items(:press).id
-  end
-
-  def logout
-    session[:user_id] = nil
-  end
-
   def setup
     login
   end
@@ -25,9 +17,13 @@ class NewsControllerTest < ActionController::TestCase
     assert assigns(:news_item).new_record?
   end
 
+  def valid_news_params
+    { content: 'Test news item', category: 'Stockists' }
+  end
+
   test ":create creates a new news item" do
     assert_difference 'NewsItem.count', 1 do
-      post :create, news_item: { content: 'Test news item', category: 'Stockists' }
+      post :create, news_item: valid_news_params
     end
     assert_redirected_to admin_path
   end
@@ -42,10 +38,9 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test ":create uploads an image to S3" do
-    image = fixture_file_upload '/image.jpg', 'image/jpeg'
     S3::Put.any_instance.expects(:execute)
 
-    post :create, news_item: { image: image, content: 'Test content', category: 'Stockists' }
+    post :create, news_item: { image: image_upload_fixture, content: 'Test content', category: 'Stockists' }
     assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', NewsItem.last.image_path
   end
 

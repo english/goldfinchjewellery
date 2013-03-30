@@ -1,0 +1,23 @@
+robin:
+  name: Robin
+  description: Test description
+  gallery: Birds
+  image_path: image.jpg
+
+pidgeon:
+  name: Pidgeon
+  description: Another description
+  gallery: Birds
+  image_path: image.jpg
+
+rain_cloud:
+  name: Rain Cloud
+  description: A rainy cloud
+  gallery: Weather
+  image_path: image.jpg
+
+peace_dove:
+  name: A Peace Dove
+  description: What a peaceful dove
+  gallery: Peace Doves
+  image_path: image.jpg

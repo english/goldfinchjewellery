@@ -26,4 +26,16 @@ class ActiveSupport::TestCase
     fill_in 'Password', with: 'secret'
     click_button 'Sign in'
   end
+
+  def image_upload_fixture
+    fixture_file_upload('/image.jpg', 'image/jpeg')
+  end
+
+  def login
+    session[:user_id] = users(:someone).id
+  end
+
+  def logout
+    session[:user_id] = nil
+  end
 end

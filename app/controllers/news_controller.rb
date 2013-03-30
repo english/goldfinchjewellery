@@ -43,8 +43,4 @@ class NewsController < ApplicationController
   def image_param
     params[:news_item][:image]
   end
-
-  def authenticate
-    return head(:unauthorized) unless logged_in?
-  end
 end

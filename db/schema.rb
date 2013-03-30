@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130223145254) do
+ActiveRecord::Schema.define(version: 20130328214907) do
+
+  create_table "jewelleries", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.string   "gallery"
+    t.string   "image_path"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "news_items", force: true do |t|
     t.text     "content"

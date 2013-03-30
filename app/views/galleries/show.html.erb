@@ -2,6 +2,12 @@
 <%= content_for :title_image, image_tag('gallery.jpg') %>
 
 <ul class="gallery">
-  <%= render params[:id].underscore %>
+  <% @jewelleries.each do |jewellery| %>
+    <li class="jewellery-piece">
+      <p><%= jewellery.description %></p>
+      <%= image_tag jewellery.image_path, alt: jewellery.name %>
+    </li>
+  <% end %>
+
   <p><%= link_to 'Back to gallery', galleries_path %></p>
 </ul>

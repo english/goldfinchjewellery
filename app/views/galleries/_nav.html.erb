@@ -1,22 +1,9 @@
 <nav>
   <ul>
-    <li class="peace-doves">
-      <%= link_to 'Peace Doves', galleries_path + '/peace-doves' %>
-    </li>
-    <li class="weather">
-      <%= link_to 'Weather', galleries_path + '/weather' %>
-    </li>
-    <li class="birds">
-      <%= link_to 'Birds', galleries_path + '/birds' %>
-    </li>
-    <li class="commissions">
-      <%= link_to 'Commissions', galleries_path + '/commissions' %>
-    </li>
-    <li class="branches">
-      <%= link_to 'Branches', galleries_path + '/branches' %>
-    </li>
-    <li class="woodlands">
-      <%= link_to 'Woodlands', galleries_path + '/woodlands' %>
-    </li>
+    <% @galleries.each do |gallery| %>
+      <li class="<%= gallery.parameterize %>">
+        <%= link_to gallery, galleries_path + "/#{gallery.parameterize}" %>
+      </li>
+    <% end %>
   </ul>
 </nav>

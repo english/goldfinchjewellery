@@ -7,4 +7,8 @@ class ApplicationController < ActionController::Base
     session[:user_id]
   end
   helper_method :logged_in?
+
+  def authenticate
+    return head(:unauthorized) unless logged_in?
+  end
 end
