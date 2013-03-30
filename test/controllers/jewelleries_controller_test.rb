@@ -27,6 +27,7 @@ class JewelleriesControllerTest < ActionController::TestCase
       post :create, jewellery: @valid_jewellery_params.except(:image)
     end
 
+    assert_response 400
     assert_template 'jewelleries/new'
   end
 
@@ -37,6 +38,7 @@ class JewelleriesControllerTest < ActionController::TestCase
       post :create, jewellery: @valid_jewellery_params.except(:name)
     end
 
+    assert_response 400
     assert_template 'jewelleries/new'
   end
 
@@ -47,7 +49,15 @@ class JewelleriesControllerTest < ActionController::TestCase
       post :create, jewellery: @valid_jewellery_params.except(:description)
     end
 
+    assert_response 400
     assert_template 'jewelleries/new'
+  end
+
+  test ":create with invalid attributes does not upload an image" do
+    S3::Put.expects(:new).never
+    post :create, jewellery: @valid_jewellery_params.except(:description)
+
+    assert_response 400
   end
 
   test ":create requires being logged in" do
