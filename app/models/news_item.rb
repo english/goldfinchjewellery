@@ -24,7 +24,7 @@ class NewsItem < ActiveRecord::Base
   end
 
   def upload_image
-    s3_image = S3::Put.new(self.image)
+    s3_image = S3::Put.new(image)
     s3_image.execute
     self.image_path = s3_image.url
   end
