@@ -19,7 +19,8 @@ class JewelleriesController < ApplicationController
     Jewellery.create!(options.except(:image))
     redirect_to admin_path
   rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => e
-    @jewellery = Jewellery.new(params.permit[:jewellery])
+    @jewellery = Jewellery.new(jewellery_params)
+    @jewellery.valid? # force error building
     render :new, status: :bad_request
   end
 

@@ -3,6 +3,7 @@ require 'test_helper'
 class NewsControllerTest < ActionController::TestCase
   def setup
     login
+    @valid_news_params = { content: 'Test news item', category: 'Stockists' }
   end
 
   def with_caching(&block)
@@ -17,13 +18,9 @@ class NewsControllerTest < ActionController::TestCase
     assert assigns(:news_item).new_record?
   end
 
-  def valid_news_params
-    { content: 'Test news item', category: 'Stockists' }
-  end
-
   test ":create creates a new news item" do
     assert_difference 'NewsItem.count', 1 do
-      post :create, news_item: valid_news_params
+      post :create, news_item: @valid_news_params
     end
     assert_redirected_to admin_path
   end
@@ -32,16 +29,24 @@ class NewsControllerTest < ActionController::TestCase
     assert_no_difference 'NewsItem.count' do
       post :create, news_item: { foo: 'bar' }
     end
+    assert_response 400
     assert_template 'news/new'
     assert_select '.error', "Content: can&#39;t be blank"
     assert_select '.error', "Category: can&#39;t be blank, is not included in the list"
   end
 
   test ":create uploads an image to S3" do
-    S3::Put.any_instance.expects(:execute)
+    image = image_upload_fixture
+    S3::Put.expects(:new).with(image).returns(Struct.new(:execute, :url).new)
 
-    post :create, news_item: { image: image_upload_fixture, content: 'Test content', category: 'Stockists' }
-    assert_equal 'http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg', NewsItem.last.image_path
+    post :create, news_item: @valid_news_params.merge(image: image)
+  end
+
+  test ":create with invalid attributes does not upload an image" do
+    S3::Put.expects(:new).never
+    post :create, news_item: @valid_news_params.except(:content)
+
+    assert_response 400
   end
 
   test ":index lists all news items" do
