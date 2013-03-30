@@ -2,7 +2,7 @@ class NewsController < ApplicationController
   before_filter :authenticate, only: %i( create destroy )
 
   REQUIRED_PARAMS  = %i( content category )
-  PERMITTED_PARAMS = %i( content category image_path )
+  PERMITTED_PARAMS = %i( content category image )
 
   def new
     @news_item = NewsItem.new
@@ -11,21 +11,14 @@ class NewsController < ApplicationController
 
   def create
     verify_required_params!
-    options = news_item_params
 
-    if params[:news_item][:image]
-      s3_image = S3::Put.new(params[:news_item][:image])
-      s3_image.execute
-
-      options.merge!(image_path: s3_image.url)
-    end
-
-    NewsItem.create!(options)
+    NewsItem.create!(news_item_params)
     redirect_to admin_path, notice: 'News Item saved successfully'
   rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => e
     @categories = NewsItem::CATEGORIES
-    @news_item = NewsItem.new(params.require(:news_item).permit(REQUIRED_PARAMS))
-    @news_item.valid? # force error building
+    @news_item = NewsItem.new(news_item_params)
+    @news_item.valid? # run validations
+
     render :new, status: :bad_request
   end
 
@@ -50,6 +43,6 @@ class NewsController < ApplicationController
   end
   
   def news_item_params
-    params.require(:news_item).permit PERMITTED_PARAMS
+    params.require(:news_item).permit(PERMITTED_PARAMS)
   end
 end

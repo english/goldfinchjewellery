@@ -16,4 +16,13 @@ class NewsItemTest < ActiveSupport::TestCase
 
     assert_equal newest, NewsItem.last_updated
   end
+
+  test "saving with an image will upload to S3 and persist its path" do
+    image = image_upload_fixture
+    S3::Put.expects(:new).with(image).returns(OpenStruct.new(execute: nil, url: 'http://example.com/image.jpg'))
+
+    news_item = NewsItem.create!(content: 'Test news item', category: 'Stockists', image: image)
+
+    assert_equal 'http://example.com/image.jpg', news_item.image_path
+  end
 end

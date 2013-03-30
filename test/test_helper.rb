@@ -28,7 +28,7 @@ class ActiveSupport::TestCase
   end
 
   def image_upload_fixture
-    fixture_file_upload('/image.jpg', 'image/jpeg')
+    Rack::Test::UploadedFile.new(File.join(ActionController::TestCase.fixture_path, '/image.jpg'), 'image/jpeg')
   end
 
   def login
