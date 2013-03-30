@@ -7,4 +7,13 @@ class JewelleryTest < ActiveSupport::TestCase
     assert_equal [jewelleries(:peace_dove)], Jewellery.from_gallery('peace-doves')
     assert_equal [jewelleries(:rain_cloud)], Jewellery.from_gallery('Weather')
   end
+
+  test "saving with an image will upload to S3 and persist its path" do
+    image = image_upload_fixture
+    S3::Put.expects(:new).with(image).returns(OpenStruct.new(execute: nil, url: 'http://example.com/image.jpg'))
+
+    jewellery = Jewellery.create!(name: 'A jewellery item', description: 'A description of some jewellery', image: image)
+
+    assert_equal 'http://example.com/image.jpg', jewellery.image_path
+  end
 end

@@ -2,7 +2,7 @@ class JewelleriesController < ApplicationController
   before_filter :authenticate
 
   REQUIRED_PARAMS  = %i( name description gallery image )
-  PERMITTED_PARAMS = %i( name description gallery image_path )
+  PERMITTED_PARAMS = %i( name description gallery image )
 
   def new
     @jewellery = Jewellery.new
@@ -10,17 +10,11 @@ class JewelleriesController < ApplicationController
 
   def create
     verify_required_params!
-    options = jewellery_params
 
-    s3_image = S3::Put.new(params[:jewellery][:image])
-    s3_image.execute
-    options.merge!(image_path: s3_image.url)
-
-    Jewellery.create!(options.except(:image))
+    Jewellery.create!(jewellery_params)
     redirect_to admin_path
   rescue ActionController::ParameterMissing, ActiveRecord::RecordInvalid => e
     @jewellery = Jewellery.new(jewellery_params)
-    @jewellery.valid? # force error building
     render :new, status: :bad_request
   end
 
