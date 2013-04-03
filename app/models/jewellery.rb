@@ -9,6 +9,10 @@ class Jewellery < ActiveRecord::Base
     where(gallery: gallery.titleize)
   end
 
+  def self.categorised
+    all.group_by(&:gallery)
+  end
+
   private
 
   def upload_image

@@ -29,11 +29,11 @@
 
 <ul class="galleries">
   <%= link_to 'New Piece of Jewellery', new_jewellery_path, class: 'btn btn-primary' %>
-  <% @galleries.each do |gallery| %>
+  <% @categorised_jewellery.each do |gallery, jewelleries| %>
     <li class="gallery">
       <h2 class="gallery-name"><%= gallery %></h2>
       <ul class="jewelleries">
-        <% Jewellery.from_gallery(gallery).each do |jewellery| %>
+        <% jewelleries.each do |jewellery| %>
           <li>
             <article class="jewellery">
               <h3><%= jewellery.name %></h3>
