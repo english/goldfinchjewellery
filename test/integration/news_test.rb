@@ -36,7 +36,7 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     # delete the news item
     visit '/admin'
-    news_item = find(:xpath, "//article[descendant::p[contains(text(), 'Test')]]")
+    news_item = all('article').find { |article| article.text.include? 'Test news story' }
     news_item.click_link('Delete')
 
     visit '/'
