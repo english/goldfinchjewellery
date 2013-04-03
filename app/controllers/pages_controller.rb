@@ -13,5 +13,6 @@ class PagesController < ApplicationController
   def admin
     redirect_to new_session_path unless logged_in?
     @categorised_news_items = NewsItem.categorised
+    @galleries = Gallery.all_names
   end
 end

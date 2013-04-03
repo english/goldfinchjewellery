@@ -10,7 +10,7 @@ class NewsItem < ActiveRecord::Base
   after_destroy :delete_image, :if => :image_path
 
   def self.categorised
-    all.group_by &:category
+    all.group_by(&:category)
   end
 
   def self.last_updated

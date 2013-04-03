@@ -18,6 +18,11 @@ class JewelleriesController < ApplicationController
     render :new, status: :bad_request
   end
 
+  def destroy
+    Jewellery.delete(params[:id])
+    redirect_to admin_path
+  end
+
   private
 
   def verify_required_params!

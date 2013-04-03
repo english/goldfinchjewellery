@@ -29,4 +29,17 @@ class GalleriesTest < ActionDispatch::IntegrationTest
     assert page.has_content? 'Integration test piece of jewellery description'
     assert page.has_selector?('img[alt="Test Jewellery"]')
   end
+
+  test "deleting a gallery entry" do
+    visit '/admin'
+
+    jewellery = find(:xpath, "//article[descendant::h3[contains(text(), 'Rain Cloud')]]")
+    jewellery.click_link('Delete')
+
+    visit '/'
+    click_link 'Gallery'
+    click_link 'Weather'
+    refute page.has_content? 'A rainy cloud'
+    refute page.has_selector?('img[alt="Rain Cloud"]')
+  end
 end

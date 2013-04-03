@@ -77,4 +77,15 @@ class JewelleriesControllerTest < ActionController::TestCase
     get :new
     assert_response 401
   end
+
+  test ":destroy deletes a jewellery item" do
+    assert_difference 'Jewellery.count', -1 do
+      delete :destroy, id: jewelleries(:robin).id
+    end
+  end
+
+  test ":destroy redirects to admin page" do
+    delete :destroy, id: jewelleries(:robin).id
+    assert_redirected_to admin_path
+  end
 end

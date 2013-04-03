@@ -25,6 +25,25 @@
       <% end %>
     </li>
   <% end %>
+</ul>
 
+<ul class="galleries">
   <%= link_to 'New Piece of Jewellery', new_jewellery_path, class: 'btn btn-primary' %>
+  <% @galleries.each do |gallery| %>
+    <li class="gallery">
+      <h2 class="gallery-name"><%= gallery %></h2>
+      <ul class="jewelleries">
+        <% Jewellery.from_gallery(gallery).each do |jewellery| %>
+          <li>
+            <article class="jewellery">
+              <h3><%= jewellery.name %></h3>
+              <p><%= jewellery.description %></p>
+              <img alt="<%= jewellery.name %>" src="<%= jewellery.image_path %>" />
+              <%= link_to 'Delete', jewellery_path(jewellery), method: :delete, class: 'btn btn-danger' %>
+            </article>
+          </li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
 </ul>
