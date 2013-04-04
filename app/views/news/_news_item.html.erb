@@ -1,0 +1,13 @@
+<article class="news-item">
+  <div class="content">
+    <%= raw Redcarpet::Markdown.new(Redcarpet::Render::XHTML).render(news_item.content) %>
+  </div>
+
+  <% unless news_item.image_path.blank? %>
+    <%= image_tag news_item.image_path %>
+  <% end %>
+
+  <% if admin %>
+    <%= link_to 'Delete', news_path(news_item), method: :delete, class: 'btn btn-danger' %>
+  <% end %>
+</article>

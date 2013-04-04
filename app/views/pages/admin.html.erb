@@ -11,17 +11,7 @@
     <li class="news-category <%= category_as_class_name category %>">
       <h2 class="category-name"><%= category %></h2>
       <% news_items.each do |news_item| %>
-        <article class="news-item">
-          <div class="content">
-            <%= raw Redcarpet::Markdown.new(Redcarpet::Render::XHTML).render(news_item.content) %>
-          </div>
-
-          <% unless news_item.image_path.blank? %>
-            <%= image_tag news_item.image_path %>
-          <% end %>
-
-          <%= link_to 'Delete', news_path(news_item), method: :delete, class: 'btn btn-danger' %>
-        </article>
+        <%= render partial: 'news/news_item', object: news_item, locals: { admin: true } %>
       <% end %>
     </li>
   <% end %>
