@@ -1,6 +1,6 @@
 GIT
   remote: git://github.com/jonleighton/poltergeist.git
-  revision: 9645b52009e258921b860d3b7601d00008b22c45
+  revision: 8131407ad162b0b6c1d5e5365add00734b3dcddd
   specs:
     poltergeist (1.1.0)
       capybara (~> 2.0, >= 2.0.1)
@@ -9,21 +9,21 @@ GIT
 
 GIT
   remote: git://github.com/newrelic/rpm.git
-  revision: ae77f6da5c13f731d7094786ad451960920936de
+  revision: b8e54ef0ce27659ef5f8b7c0b15b28e354f358c9
   specs:
-    newrelic_rpm (3.5.8)
+    newrelic_rpm (3.6.0)
 
 GIT
   remote: git://github.com/rails/activerecord-deprecated_finders.git
-  revision: c00788c2b7e01170f63bd9651f7efd8deb4bd4b0
+  revision: 46aa99efc9c3c1db1d4f2e55373481212e6b2e26
   specs:
     activerecord-deprecated_finders (0.0.3)
 
 GIT
   remote: git://github.com/rails/arel.git
-  revision: 6c2e2ac6c77051c4e1d3e70f197f85df53935e76
+  revision: 933ea218116645eafaf3b7ea5695520db0f9d9ba
   specs:
-    arel (4.0.0.beta1.20130225132415)
+    arel (4.0.0.beta2.20130314230643)
 
 GIT
   remote: git://github.com/rails/coffee-rails.git
@@ -35,7 +35,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/rails.git
-  revision: dff4d4ad2b7b55283132eb6cf8ac27b13827624c
+  revision: ec8f59ca530316a14672686611c629abc4112950
   specs:
     actionmailer (4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -53,13 +53,13 @@ GIT
       activemodel (= 4.0.0.beta1)
       activerecord-deprecated_finders (~> 0.0.3)
       activesupport (= 4.0.0.beta1)
-      arel (~> 4.0.0.beta1)
+      arel (~> 4.0.0.beta2)
     activesupport (4.0.0.beta1)
       i18n (~> 0.6, >= 0.6.4)
       minitest (~> 4.2)
       multi_json (~> 1.3)
       thread_safe (~> 0.1)
-      tzinfo (~> 0.3.33)
+      tzinfo (~> 0.3.37)
     rails (4.0.0.beta1)
       actionmailer (= 4.0.0.beta1)
       actionpack (= 4.0.0.beta1)
@@ -72,8 +72,7 @@ GIT
       actionpack (= 4.0.0.beta1)
       activesupport (= 4.0.0.beta1)
       rake (>= 0.8.7)
-      rdoc (~> 3.4)
-      thor (>= 0.17.0, < 2.0)
+      thor (>= 0.18.1, < 2.0)
 
 GIT
   remote: git://github.com/rails/sass-rails.git
@@ -87,7 +86,7 @@ GIT
 
 GIT
   remote: git://github.com/rails/sprockets-rails.git
-  revision: afce1e65f7c6df4ae96522b26e755915d238ff80
+  revision: 8105eb9ee2d4889f9d3d7c327899b63493f4b061
   specs:
     sprockets-rails (2.0.0.rc3)
       actionpack (>= 3.0)
@@ -98,10 +97,10 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.3)
-    atomic (1.0.1)
+    atomic (1.1.5)
     bcrypt-ruby (3.0.1)
     builder (3.1.4)
-    capybara (2.0.2)
+    capybara (2.0.3)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
@@ -114,7 +113,7 @@ GEM
     coffee-script (2.2.0)
       coffee-script-source
       execjs
-    coffee-script-source (1.6.1)
+    coffee-script-source (1.6.2)
     crack (0.3.2)
     erubis (2.7.0)
     eventmachine (1.0.3)
@@ -122,29 +121,28 @@ GEM
       multi_json (~> 1.0)
     faye-websocket (0.4.7)
       eventmachine (>= 0.12.0)
-    ffi (1.4.0)
+    ffi (1.6.0)
     hike (1.2.1)
     http_parser.rb (0.5.3)
     i18n (0.6.4)
-    jbuilder (1.0.2)
+    jbuilder (1.2.0)
       activesupport (>= 3.0.0)
     jquery-rails (2.2.1)
       railties (>= 3.0, < 5.0)
       thor (>= 0.14, < 2.0)
-    json (1.7.7)
     mail (2.5.3)
       i18n (>= 0.4.0)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     metaclass (0.0.1)
     method_source (0.8.1)
-    mime-types (1.21)
-    minitest (4.6.2)
+    mime-types (1.22)
+    minitest (4.7.0)
     mocha (0.13.3)
       metaclass (~> 0.0.1)
-    multi_json (1.6.1)
-    nokogiri (1.5.6)
-    pg (0.14.1)
+    multi_json (1.7.2)
+    nokogiri (1.5.9)
+    pg (0.15.0)
     polyglot (0.3.3)
     pry (0.9.12)
       coderay (~> 1.0.5)
@@ -155,9 +153,7 @@ GEM
     rack (1.5.2)
     rack-test (0.6.2)
       rack (>= 1.0)
-    rake (10.0.3)
-    rdoc (3.12.2)
-      json (~> 1.4)
+    rake (10.0.4)
     redcarpet (2.2.2)
     rubyzip (0.9.9)
     sass (3.2.7)
@@ -166,24 +162,24 @@ GEM
       multi_json (~> 1.0)
       rubyzip
       websocket (~> 1.0.4)
-    slop (3.4.3)
+    slop (3.4.4)
     sprockets (2.9.0)
       hike (~> 1.2)
       multi_json (~> 1.0)
       rack (~> 1.0)
       tilt (~> 1.1, != 1.3.0)
     sqlite3 (1.3.7)
-    thor (0.17.0)
+    thor (0.18.1)
     thread_safe (0.1.0)
       atomic
-    tilt (1.3.5)
+    tilt (1.3.6)
     treetop (1.4.12)
       polyglot
       polyglot (>= 0.3.1)
-    turbolinks (1.0.0)
+    turbolinks (1.1.1)
       coffee-rails
-    tzinfo (0.3.36)
-    uglifier (1.3.0)
+    tzinfo (0.3.37)
+    uglifier (2.0.0)
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     vcr (2.4.0)
