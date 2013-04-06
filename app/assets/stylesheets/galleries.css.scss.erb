@@ -20,7 +20,7 @@
     @include hide-text;
   }
 
-  <% %w[weather birds peace-doves commissions branches woodlands].each do |gallery| %>
+  <% %w( weather birds peace-doves commissions branches woodlands ).each do |gallery| %>
     .<%= gallery %> {
       background: transparent url(<%= asset_path "gallery/#{gallery}.jpg" %>) no-repeat 0 0;
     }
@@ -85,6 +85,27 @@
   p {
     float: left;
     width: 200px;
+  }
+  
+  img { float: right; }
+}
+
+.admin .galleries {
+  width: 620px;
+  margin: 30px auto 0 auto;
+  list-style: none;
+
+  .jewelleries { padding: 0; }
+
+  .description-delete {
+    float: left;
+    width: 200px;
+  }
+
+  li {
+    clear: both;
+    margin-bottom: 20px;
+    overflow: hidden;
   }
   
   img { float: right; }
