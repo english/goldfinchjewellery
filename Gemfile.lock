@@ -107,6 +107,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     addressable (2.3.3)
+    ansi (1.4.3)
     atomic (1.1.5)
     bcrypt-ruby (3.0.1)
     builder (3.1.4)
@@ -183,6 +184,8 @@ GEM
       polyglot (>= 0.3.1)
     turbolinks (1.1.1)
       coffee-rails
+    turn (0.9.6)
+      ansi
     tzinfo (0.3.37)
     uglifier (2.0.0)
       execjs (>= 0.3.0)
@@ -219,6 +222,7 @@ DEPENDENCIES
   sprockets-rails!
   sqlite3
   turbolinks
+  turn
   uglifier (>= 1.0.3)
   vcr
   webmock (< 1.9)

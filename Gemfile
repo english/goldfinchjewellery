@@ -32,6 +32,7 @@ group :production do
 end
 
 group :test do
+  gem 'turn'
   gem 'capybara', '~> 2.0'
   gem 'poltergeist', github: 'jonleighton/poltergeist', require: 'capybara/poltergeist'
   gem 'mocha', '~> 0.13.0', require: false
