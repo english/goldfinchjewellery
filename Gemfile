@@ -16,6 +16,7 @@ gem 'bcrypt-ruby'
 gem 'newrelic_rpm', github: 'newrelic/rpm'
 
 group :assets do
+  gem 'sprockets', github: 'jamienglish/sprockets'
   gem 'sprockets-rails', github: 'rails/sprockets-rails'
   gem 'coffee-rails', github: 'rails/coffee-rails'
 
