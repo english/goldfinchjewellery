@@ -23,6 +23,19 @@ class JewelleriesController < ApplicationController
     redirect_to admin_path
   end
 
+  def edit
+    @jewellery = Jewellery.find(params[:id])
+  end
+
+  def update
+    @jewellery = Jewellery.find(params[:id])
+    if @jewellery.update_attributes(jewellery_params)
+      redirect_to admin_path
+    else
+      render :edit
+    end
+  end
+
   private
 
   def verify_required_params!

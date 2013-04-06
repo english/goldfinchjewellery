@@ -10,7 +10,11 @@
 
 <header>
   <%= link_to root_path do %>
-    <%= yield :title_image %>
+    <% if content_for?(:title_image) %>
+      <%= yield :title_image %>
+    <% else %>
+      <%= image_tag('gallery.jpg') %>
+    <% end %>
   <% end %>
 
   <nav>

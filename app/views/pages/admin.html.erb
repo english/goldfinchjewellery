@@ -29,11 +29,12 @@
       <h2 class="gallery-name"><%= gallery %></h2>
       <ul class="jewelleries">
         <% jewelleries.each do |jewellery| %>
-          <li>
-            <article class="jewellery">
+          <li class="jewellery">
+            <article class="jewellery-piece">
               <h3 class="jewellery-name"><%= jewellery.name %></h3>
               <div class="description-delete">
                 <p><%= jewellery.description %></p>
+                <%= link_to 'Edit', edit_jewellery_path(jewellery), class: 'btn btn-warning' %>
                 <%= link_to 'Delete', jewellery_path(jewellery), method: :delete, class: 'btn btn-danger' %>
               </div>
               <img alt="<%= jewellery.name %>" src="<%= jewellery.image_path %>" />

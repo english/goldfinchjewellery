@@ -88,4 +88,30 @@ class JewelleriesControllerTest < ActionController::TestCase
     delete :destroy, id: jewelleries(:robin).id
     assert_redirected_to admin_path
   end
+
+  test ":edit renders form for jewellery item" do
+    get :edit, id: jewelleries(:robin).id
+    assert_equal jewelleries(:robin), assigns(:jewellery)
+    assert_select 'input#jewellery_description[value=?]', jewelleries(:robin).description
+  end
+
+  test ":update updates a jewellery item" do
+    robin = jewelleries(:robin)
+    put :update, id: robin.id, jewellery: { name: 'new name', description: 'new description' }
+
+    robin.reload
+    assert_equal 'new name', robin.name
+    assert_equal 'new description', robin.description
+
+    assert_redirected_to admin_path
+  end
+
+  test ":update with invalid params" do
+    robin = jewelleries(:robin)
+    put :update, id: robin.id, jewellery: { name: '', description: 'new description' }
+
+    robin.reload
+    refute_equal 'new description', robin.description
+    assert_template 'jewelleries/edit'
+  end
 end
