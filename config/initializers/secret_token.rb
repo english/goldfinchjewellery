@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Goldfinchjewellery::Application.config.secret_key_base = ENV['SECRET_KEY_BASE']
+Goldfinchjewellery::Application.config.secret_key_base = ENV['SECRET_KEY_BASE'] || '46986bfa4720a9b912faec0a9e633547508f2074f96ab8e0c6815eed7cad1c293ae719af67270ab6ef57efdbbc8b7c0fee4fd231d4550ed0315df0fc8d477aa7'

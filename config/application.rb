@@ -13,5 +13,7 @@ module Goldfinchjewellery
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
+
+    config.i18n.enforce_available_locales = true
   end
 end
