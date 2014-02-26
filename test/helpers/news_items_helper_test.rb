@@ -1,4 +1,4 @@
 require 'test_helper'
 
-class NewsItemsHelperTest < ActionView::TestCase
+class NewsHelperTest < ActionView::TestCase
 end

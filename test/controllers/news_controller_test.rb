@@ -12,22 +12,22 @@ class NewsControllerTest < ActionController::TestCase
     ActionController::Base.perform_caching = false
   end
 
-  test ":new sets a new empty NewsItem" do
+  test ":new sets a new empty News" do
     get :new
-    assert_kind_of NewsItem, assigns(:news_item)
-    assert assigns(:news_item).new_record?
+    assert_kind_of News, assigns(:news)
+    assert assigns(:news).new_record?
   end
 
   test ":create creates a new news item" do
-    assert_difference 'NewsItem.count', 1 do
-      post :create, news_item: @valid_news_params
+    assert_difference 'News.count', 1 do
+      post :create, news: @valid_news_params
     end
     assert_redirected_to admin_path
   end
 
   test ":create with invalid post data will redirect to :new with error message" do
-    assert_no_difference 'NewsItem.count' do
-      post :create, news_item: { foo: 'bar' }
+    assert_no_difference 'News.count' do
+      post :create, news: { foo: 'bar' }
     end
     assert_response 400
     assert_template 'news/new'
@@ -39,12 +39,12 @@ class NewsControllerTest < ActionController::TestCase
     image = image_upload_fixture
     S3::Put.expects(:new).with(image).returns(Struct.new(:execute, :url).new)
 
-    post :create, news_item: @valid_news_params.merge(image: image)
+    post :create, news: @valid_news_params.merge(image: image)
   end
 
   test ":create with invalid attributes does not upload an image" do
     S3::Put.expects(:new).never
-    post :create, news_item: @valid_news_params.except(:content)
+    post :create, news: @valid_news_params.except(:content)
 
     assert_response 400
   end
@@ -67,8 +67,8 @@ class NewsControllerTest < ActionController::TestCase
 
   test ":index returns a 304 Not Modified if no news item has been modified" do
     with_caching do
-      old_news = NewsItem.new(updated_at: 2.day.ago, content: 'stuff', category: 'Press')
-      NewsItem.stubs(:last_updated).returns(old_news)
+      old_news = News.new(updated_at: 2.day.ago, content: 'stuff', category: 'Press')
+      News.stubs(:last_updated).returns(old_news)
 
       @request.env['HTTP_IF_MODIFIED_SINCE'] = 1.day.ago.rfc2822
       get :index
@@ -80,10 +80,10 @@ class NewsControllerTest < ActionController::TestCase
     end
   end
 
-  test ":destroy deletes news_item" do
-    news_item = mock('news_item')
-    NewsItem.stubs(:find).returns(news_item)
-    news_item.expects(:destroy)
+  test ":destroy deletes news" do
+    news = mock('news')
+    News.stubs(:find).returns(news)
+    news.expects(:destroy)
 
     delete :destroy, id: 1
 
@@ -91,9 +91,9 @@ class NewsControllerTest < ActionController::TestCase
   end
 
   test ":destroy deletes S3 image" do
-    news_item = news_items(:press)
+    news_item = news(:press)
     news_item.update_attributes(image_path: 'http://example.org/image.jpg')
-    NewsItem.stubs(:find).returns(news_item)
+    News.stubs(:find).returns(news_item)
 
     S3::Delete.any_instance.expects(:execute)
 
@@ -103,14 +103,14 @@ class NewsControllerTest < ActionController::TestCase
   test "cannot destroy without being logged in" do
     logout
 
-    delete :destroy, id: news_items(:press).id
+    delete :destroy, id: news(:press).id
     assert_response 401
   end
 
   test "cannot create without being logged in" do
     logout
 
-    post :create, news_item: { content: 'Test news item', category: 'Stockists' }
+    post :create, news: { content: 'Test news item', category: 'Stockists' }
     assert_response 401
   end
 end

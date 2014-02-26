@@ -1,5 +1,5 @@
 class JewelleriesController < ApplicationController
-  before_filter :authenticate
+  before_action :authenticate
 
   REQUIRED_PARAMS  = %i( name description gallery image )
   PERMITTED_PARAMS = %i( name description gallery image )

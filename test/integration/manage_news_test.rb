@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class NewsTest < ActionDispatch::IntegrationTest
+class ManageNewsTest < ActionDispatch::IntegrationTest
   include Capybara::DSL
 
   def setup
@@ -36,8 +36,8 @@ class NewsTest < ActionDispatch::IntegrationTest
 
     # delete the news item
     visit '/admin'
-    news_item = all('article').find { |article| article.text.include? 'Test news story' }
-    news_item.click_link('Delete')
+    news = all('article').find { |article| article.text.include? 'Test news story' }
+    news.click_link('Delete')
 
     visit '/'
     click_link 'Latest News'

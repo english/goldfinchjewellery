@@ -1,4 +1,4 @@
-class NewsItem < ActiveRecord::Base
+class News < ActiveRecord::Base
   CATEGORIES = ['Stockists', 'Events & Exhibitions', 'Awards', 'Press']
 
   attr_accessor :image
@@ -14,7 +14,7 @@ class NewsItem < ActiveRecord::Base
   end
 
   def self.last_updated
-    NewsItem.order('updated_at').last
+    News.order('updated_at').last
   end
 
   private

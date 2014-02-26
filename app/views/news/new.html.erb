@@ -1,10 +1,10 @@
 <%= content_for :title, 'Latest News' %>
 <%= content_for :title_image, image_tag('news.jpg') %>
 
-<% unless @news_item.errors.empty? %>
+<% unless @news.errors.empty? %>
   <h2>Errors:</h2>
   <ul class="errors">
-    <% @news_item.errors.messages.each do |field, messages| %>
+    <% @news.errors.messages.each do |field, messages| %>
       <li class="error">
         <p><%= field.capitalize %>: <%= messages.join ', ' %></p>
       </li>
@@ -12,7 +12,7 @@
   </ul>
 <% end %>
 
-<%= form_for @news_item, url: news_path(@news_item), html: { class: 'new-news-item' } do |f| %>
+<%= form_for @news, html: { class: 'new-news-item' } do |f| %>
   <div class="input">
     <%= f.label :category %>
     <%= f.select :category, @categories %>

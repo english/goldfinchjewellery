@@ -23,7 +23,7 @@ class JewelleriesControllerTest < ActionController::TestCase
   end
 
   test ":create with no image" do
-    assert_no_difference 'NewsItem.count' do
+    assert_no_difference 'News.count' do
       post :create, jewellery: @valid_jewellery_params.except(:image)
     end
 
@@ -34,7 +34,7 @@ class JewelleriesControllerTest < ActionController::TestCase
   test ":create with no name" do
     S3::Put.any_instance.stubs(:execute)
 
-    assert_no_difference 'NewsItem.count' do
+    assert_no_difference 'News.count' do
       post :create, jewellery: @valid_jewellery_params.except(:name)
     end
 
@@ -45,7 +45,7 @@ class JewelleriesControllerTest < ActionController::TestCase
   test ":create with no description" do
     S3::Put.any_instance.stubs(:execute)
 
-    assert_no_difference 'NewsItem.count' do
+    assert_no_difference 'News.count' do
       post :create, jewellery: @valid_jewellery_params.except(:description)
     end
 
@@ -65,7 +65,7 @@ class JewelleriesControllerTest < ActionController::TestCase
 
     S3::Put.any_instance.stubs(:execute)
 
-    assert_no_difference 'NewsItem.count' do
+    assert_no_difference 'News.count' do
       post :create, jewellery: @valid_jewellery_params
     end
 
