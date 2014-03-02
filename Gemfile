@@ -13,7 +13,7 @@ gem "jbuilder", "~> 1.2"
 gem "bcrypt-ruby", "~> 3.1.2"
 
 gem "newrelic_rpm"
-gem "puma"
+gem "thin"
 gem "redcarpet"
 
 group :development, :test do
@@ -22,8 +22,6 @@ group :development, :test do
 end
 
 group :test do
-  gem "capybara", "~> 2.0"
-  gem "poltergeist", require: "capybara/poltergeist"
   gem "mocha", "~> 0.13.0", require: false
   gem "vcr"
   gem "webmock", "< 1.9"

@@ -1,12 +1,13 @@
-<%= content_for :title, 'Latest News' %>
-<%= content_for :title_image, image_tag('news.jpg') %>
+<%= content_for :title, "Manage News" %>
 
 <ul class="news-items">
+  <%= link_to "New News Item", new_news_path, class: "btn btn-primary" %>
+
   <% @categorised_news.each do |category, news| %>
     <li class="news-category <%= category_as_class_name category %>">
       <h2 class="category-name"><%= category %></h2>
       <% news.each do |news_item| %>
-        <%= render partial: 'news/news_item', object: news_item, locals: { admin: false } %>
+        <%= render partial: "news/news_item", object: news_item, locals: { admin: true } %>
       <% end %>
     </li>
   <% end %>

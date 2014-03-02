@@ -5,7 +5,7 @@ class SessionsControllerTest < ActionController::TestCase
 
   test "sign in successfully" do
     post :create, email: users(:someone).email, password: 'secret'
-    assert_redirected_to admin_path
+    assert_redirected_to root_path
     assert_equal users(:someone).id, session[:user_id]
   end
 
@@ -19,7 +19,7 @@ class SessionsControllerTest < ActionController::TestCase
   test "sign in when already signed in" do
     session[:user_id] = users(:someone).id
     get :new
-    assert_redirected_to admin_path
+    assert_redirected_to root_path
   end
 
   test "sign out" do

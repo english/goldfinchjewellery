@@ -6,7 +6,7 @@ module S3
     end
 
     def execute
-      sha1_digest = OpenSSL::Digest::Digest.new('sha1')
+      sha1_digest = OpenSSL::Digest.new('sha1')
       hmac = OpenSSL::HMAC.digest(sha1_digest, @secret_access_key_id, @string_to_sign)
 
       base64(hmac)

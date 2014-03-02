@@ -9,6 +9,6 @@ class ApplicationController < ActionController::Base
   helper_method :logged_in?
 
   def authenticate
-    return head(:unauthorized) unless logged_in?
+    redirect_to new_session_path unless logged_in?
   end
 end

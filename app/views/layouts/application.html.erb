@@ -8,33 +8,13 @@
 </head>
 <body>
 
-<header>
-  <%= link_to root_path do %>
-    <% if content_for?(:title_image) %>
-      <%= yield :title_image %>
-    <% else %>
-      <%= image_tag('gallery.jpg') %>
-    <% end %>
-  <% end %>
-
-  <nav>
-    <ul>
-      <%= raw navigation 'About'       => root_path,
-                         'Gallery'     => galleries_path,
-                         'Latest News' => news_index_path,
-                         'Contact'     => contact_path,
-                         'Links'       => links_path %>
-    </ul>
-  </nav>
-</header>
-
 <% if flash.notice %>
   <div class="success">
     <p><%= flash.notice %></p>
   </div>
 <% end %>
 
-<div class="content <%= controller.controller_name %> <%= controller.action_name.gsub('_', '-') %>">
+<div class="content">
   <%= yield %>
 </div>
 

@@ -1,5 +1,5 @@
 class NewsController < ApplicationController
-  before_action :authenticate,   only: %i( create destroy )
+  before_action :authenticate, except: :index
   before_action :set_categories, only: %i( new create )
 
   def new
@@ -10,20 +10,41 @@ class NewsController < ApplicationController
     @news = News.new(news_params)
 
     if @news.save
-      redirect_to admin_path, notice: 'News Item saved successfully'
+      redirect_to root_path, notice: 'News Item saved successfully'
     else
       render :new, status: :bad_request
     end
   end
 
   def index
-    fresh_when(News.last_updated)
-    @categorised_news = News.categorised
+    respond_to do |format|
+      format.json do
+        response.headers["Access-Control-Allow-Origin"] = "*"
+
+        render json: {
+          news: News.all.map { |news_item|
+            {
+              id: news_item.id,
+              category: news_item.category,
+              html: render_to_string(partial: "news/news_item.html.erb", locals: { news_item: news_item, admin: false })
+            }
+          }
+        }
+      end
+
+      format.html do
+        if logged_in?
+          @categorised_news = News.categorised
+        else
+          redirect_to new_session_path
+        end
+      end
+    end
   end
 
   def destroy
     News.find(params[:id]).destroy
-    redirect_to admin_path, notice: 'News Item deleted successfully'
+    redirect_to root_path, notice: 'News Item deleted successfully'
   end
 
   private

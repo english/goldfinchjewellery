@@ -1,22 +1,19 @@
 require 'test_helper'
 
 class AuthenticationTest < ActionDispatch::IntegrationTest
-  include Capybara::DSL
-
   test "Admin signs in and can edit stuff" do
-    visit '/admin'
-    refute page.has_content? 'Manage News Items'
-    assert page.has_content? 'Log In'
+    get_via_redirect "/"
 
-    sign_in
+    assert_equal "/sessions/new", path
+    assert_select "body", text: /Log In/
+    post_via_redirect "/sessions", email: "someone@example.org", password: "secret"
 
-    visit '/admin'
-    assert page.has_content? 'Manage News Items'
+    assert_response :success
+    assert_equal "/news", path
+    assert_select "a", text: "New News Item"
+    delete_via_redirect "/sessions/current"
 
-    click_link 'Sign out'
-
-    visit '/admin'
-    refute page.has_content? 'Manage News Items'
-    assert page.has_content? 'Log In'
+    get "/news"
+    assert_response :redirect
   end
 end

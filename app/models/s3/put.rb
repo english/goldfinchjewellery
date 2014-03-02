@@ -31,8 +31,8 @@ module S3
     def headers
       { 'Authorization'  => "AWS #{@access_key_id}:#{signature}",
         'Date'           => Time.now.httpdate,
-          'Content-Type'   => content_type,
-          'Content-Length' => content_length }
+        'Content-Type'   => content_type,
+        'Content-Length' => content_length }
     end
 
     def path

@@ -1,9 +1,0 @@
-<nav>
-  <ul>
-    <% @galleries.each do |gallery| %>
-      <li class="<%= gallery.parameterize %>">
-        <%= link_to gallery, galleries_path + "/#{gallery.parameterize}" %>
-      </li>
-    <% end %>
-  </ul>
-</nav>
