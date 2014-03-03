@@ -2,6 +2,7 @@
 
 <ul class="news-items">
   <%= link_to "New News Item", new_news_path, class: "btn btn-primary" %>
+  <%= link_to "Sign out", session_path('current'), class: "btn btn-danger", method: :delete %>
 
   <% @categorised_news.each do |category, news| %>
     <li class="news-category <%= category_as_class_name category %>">
