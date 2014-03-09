@@ -1,5 +1,4 @@
-<%= content_for :title, 'Latest News' %>
-<%= content_for :title_image, image_tag('news.jpg') %>
+<h1>New News Item</h1>
 
 <% unless @news.errors.empty? %>
   <h2>Errors:</h2>
@@ -12,23 +11,31 @@
   </ul>
 <% end %>
 
-<%= form_for @news, html: { class: 'new-news-item' } do |f| %>
-  <div class="input">
-    <%= f.label :category %>
-    <%= f.select :category, @categories %>
+<%= form_for @news, html: { class: "form-horizontal", role: "form" } do |f| %>
+  <div class="form-group">
+    <%= f.label :category, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.select :category, @categories, {}, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="input">
-    <%= f.label :content %>
-    <%= f.text_area :content %>
+  <div class="form-group">
+    <%= f.label :content, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.text_area :content, class: "form-control" %>
+    </div>
   </div>
 
-  <div class="input">
-    <%= f.label :image %>
-    <%= f.file_field :image %>
+  <div class="form-group">
+    <%= f.label :image, class: "col-sm-2 control-label" %>
+    <div class="col-sm-10">
+      <%= f.file_field :image %>
+    </div>
   </div>
 
-  <div class="button">
-    <%= f.submit "Save and Publish", class: 'btn btn-primary' %>
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <%= f.submit "Save and Publish", class: 'btn btn-primary' %>
+    </div>
   </div>
 <% end %>

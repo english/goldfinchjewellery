@@ -1,0 +1,25 @@
+<%= content_for :title, "Manage Jewellery" %>
+
+<%= link_to "New Jewellery Item", new_jewellery_path, class: "btn btn-primary" %>
+
+<table class="table">
+  <thead>
+    <th>Gallery</th>
+    <th>Description</th>
+    <th>Image</th>
+    <th></th>
+  </thead>
+
+  <tbody>
+    <% @categorised_jewellery.each do |gallery, jewellery| %>
+      <% jewellery.each do |jewellery_item| %>
+        <tr>
+          <td><%= gallery %></td>
+          <td><%= jewellery_item.description %></td>
+          <td><%= image_tag jewellery_item.image_path %></td>
+          <td><%= link_to "Delete", jewellery_path(jewellery_item), method: :delete, class: "btn btn-danger" %></td>
+        </tr>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
