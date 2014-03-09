@@ -18,6 +18,7 @@ gem "redcarpet"
 group :development, :test do
   gem "sqlite3"
   gem "pry"
+  gem "spring"
 end
 
 group :test do
