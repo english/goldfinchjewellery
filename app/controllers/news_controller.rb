@@ -26,7 +26,8 @@ class NewsController < ApplicationController
             {
               id: news_item.id,
               category: news_item.category,
-              html: render_to_string(partial: "news/news_item.html.erb", locals: { news_item: news_item, admin: false })
+              html: render_to_string(partial: "news/news_item.html.erb", locals: { news_item: news_item, admin: false }),
+              updated_at: news_item.updated_at
             }
           }
         }

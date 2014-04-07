@@ -61,8 +61,9 @@ class NewsControllerTest < ActionController::TestCase
     assert json["news"][0].has_key?("id")
     assert json["news"][0].has_key?("category")
     assert json["news"][0].has_key?("html")
+    assert json["news"][0].has_key?("updated_at")
 
-    assert_equal 3, json["news"][0].keys.count
+    assert_equal 4, json["news"][0].keys.count
   end
 
   test ":index via json allows CORS" do
