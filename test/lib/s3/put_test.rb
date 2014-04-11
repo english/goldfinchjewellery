@@ -2,8 +2,8 @@ require "test_helper"
 require "s3/put"
 
 class S3::PutTest < ActiveSupport::TestCase
-  test "store! uploads the image" do
-    VCR.use_cassette 'S3Image#store!', preserve_exact_body_bytes: true do
+  test "uploads the image" do
+    VCR.use_cassette 'S3Image#call', preserve_exact_body_bytes: true do
       file = Rack::Test::UploadedFile.new('test/fixtures/image.jpg', 'image/jpeg')
       subject = S3::Put.new(file)
       subject.call

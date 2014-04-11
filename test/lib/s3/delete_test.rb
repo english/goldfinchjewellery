@@ -2,7 +2,7 @@ require "test_helper"
 require "s3/delete"
 
 class S3DeleteTest < ActiveSupport::TestCase
-  test "delete! deletes the image" do
+  test "deletes the image" do
     VCR.use_cassette 'S3Delete#call' do
       S3::Delete.new('http://goldfinchjewellery.s3-eu-west-1.amazonaws.com/image.jpg').call
 
