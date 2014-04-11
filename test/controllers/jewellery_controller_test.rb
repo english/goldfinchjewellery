@@ -1,4 +1,5 @@
 require "test_helper"
+require "s3/put"
 
 class JewelleryControllerTest < ActionController::TestCase
   def setup

@@ -1,3 +1,6 @@
+require "s3/string_to_sign"
+require "s3/signature"
+
 module S3
   class Put
     BUCKET = 'goldfinchjewellery'

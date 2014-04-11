@@ -1,4 +1,5 @@
-require 'test_helper'
+require "test_helper"
+require "s3/delete"
 
 class NewsControllerTest < ActionController::TestCase
   def setup

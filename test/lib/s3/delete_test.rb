@@ -1,4 +1,5 @@
-require 'test_helper'
+require "test_helper"
+require "s3/delete"
 
 class S3DeleteTest < ActiveSupport::TestCase
   test "delete! deletes the image" do

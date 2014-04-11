@@ -1,4 +1,5 @@
-require 'test_helper'
+require "test_helper"
+require "s3/put"
 
 class S3::PutTest < ActiveSupport::TestCase
   test "store! uploads the image" do

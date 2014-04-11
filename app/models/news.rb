@@ -1,3 +1,5 @@
+require "s3/put"
+
 class News < ActiveRecord::Base
   CATEGORIES = ['Stockists', 'Events & Exhibitions', 'Awards', 'Press']
 
