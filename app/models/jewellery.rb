@@ -19,8 +19,10 @@ class Jewellery < ActiveRecord::Base
   private
 
   def upload_image
-    s3_image = S3::Put.new(image)
-    s3_image.call
-    self.image_path = s3_image.url
+    self.image_path = s3_putter(image).call
+  end
+
+  def s3_putter(file)
+    S3::Put.new(file)
   end
 end

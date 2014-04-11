@@ -18,11 +18,20 @@ class NewsTest < ActiveSupport::TestCase
   end
 
   test "saving with an image will upload to S3 and persist its path" do
-    image = image_upload_fixture
-    S3::Put.expects(:new).with(image).returns(OpenStruct.new(call: nil, url: 'http://example.com/image.jpg'))
+    image_fixture = image_upload_fixture
+    news_item = News.new(content: 'Test news item', category: 'Stockists', image: image_fixture)
 
-    news_item = News.create!(content: 'Test news item', category: 'Stockists', image: image)
+    news_item.instance_eval do
+      define_singleton_method(:s3_putter) do |image|
+        message = "Expected #{image_fixture}, got #{image}"
+        raise Minitest::Assertion, message unless image_fixture == image
 
-    assert_equal 'http://example.com/image.jpg', news_item.image_path
+        -> { "http://example.com/image.jpg" }
+      end
+    end
+
+    news_item.save!
+
+    assert_equal "http://example.com/image.jpg", news_item.image_path
   end
 end

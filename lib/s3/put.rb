@@ -23,13 +23,15 @@ module S3
       response = http.request(request)
 
       raise "Upload error: #{response.code}" unless response.code == '200'
+
+      url
     end
+
+    private
 
     def url
       "http://#{DOMAIN}/#{@file.original_filename}"
     end
-
-    private
 
     def headers
       { 'Authorization'  => "AWS #{@access_key_id}:#{signature}",
