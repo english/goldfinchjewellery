@@ -40,7 +40,7 @@ class NewsControllerTest < ActionController::TestCase
   test ":create uploads an image to S3" do
     login
     image = image_upload_fixture
-    S3::Put.expects(:new).with(image).returns(Struct.new(:execute, :url).new)
+    S3::Put.expects(:new).with(image).returns(Struct.new(:call, :url).new)
 
     post :create, news: @valid_news_params.merge(image: image)
   end
@@ -96,7 +96,7 @@ class NewsControllerTest < ActionController::TestCase
     news_item.update_attributes(image_path: 'http://example.org/image.jpg')
     News.stubs(:find).returns(news_item)
 
-    S3::Delete.any_instance.expects(:execute)
+    S3::Delete.any_instance.expects(:call)
 
     delete :destroy, id: 1
   end

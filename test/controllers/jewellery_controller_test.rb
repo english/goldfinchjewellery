@@ -46,7 +46,7 @@ class JewelleryControllerTest < ActionController::TestCase
 
   test ":create persists a jewellery item" do
     session[:user_id] = users(:someone).id
-    S3::Put.any_instance.stubs(:execute)
+    S3::Put.any_instance.stubs(:call)
 
     assert_difference 'Jewellery.count', 1 do
       post :create, jewellery: @valid_jewellery_params
@@ -57,7 +57,7 @@ class JewelleryControllerTest < ActionController::TestCase
 
   test ":create with missing params" do
     session[:user_id] = users(:someone).id
-    S3::Put.any_instance.stubs(:execute)
+    S3::Put.any_instance.stubs(:call)
 
     assert_no_difference 'Jewellery.count' do
       post :create, jewellery: @valid_jewellery_params.except(:name)

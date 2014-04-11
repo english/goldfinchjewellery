@@ -9,7 +9,7 @@ module S3
       @secret_access_key_id = ENV['AWS_SECRET_ACCESS_KEY']
     end
 
-    def execute
+    def call
       http = Net::HTTP.new(@uri.host)
       request = Net::HTTP::Delete.new(@uri.path)
       request['Date'] = Time.now.httpdate
@@ -22,12 +22,12 @@ module S3
     private
 
     def signature
-      S3::Signature.new(@secret_access_key_id, string_to_sign).execute
+      S3::Signature.new(@secret_access_key_id, string_to_sign).call
     end
 
     def string_to_sign
       canonicalized_resource = "/goldfinchjewellery#{@uri.path}"
-      S3::StringToSign.new(canonicalized_resource, verb: 'DELETE').execute
+      S3::StringToSign.new(canonicalized_resource, verb: 'DELETE').call
     end
   end
 end

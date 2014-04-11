@@ -14,7 +14,7 @@ module S3
       @secret_access_key_id = ENV['AWS_SECRET_ACCESS_KEY']
     end
 
-    def execute
+    def call
       http = Net::HTTP.new(DOMAIN)
       request = Net::HTTP::Put.new(path)
       request.initialize_http_header(headers)
@@ -54,12 +54,12 @@ module S3
     end
 
     def signature
-      S3::Signature.new(@secret_access_key_id, string_to_sign).execute
+      S3::Signature.new(@secret_access_key_id, string_to_sign).call
     end
 
     def string_to_sign
       canonicalized_resource = "/#{BUCKET}/#{@file.original_filename}"
-      S3::StringToSign.new(canonicalized_resource, verb: 'PUT', content_type: content_type).execute
+      S3::StringToSign.new(canonicalized_resource, verb: 'PUT', content_type: content_type).call
     end
   end
 end

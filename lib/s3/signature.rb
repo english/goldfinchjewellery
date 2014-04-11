@@ -5,7 +5,7 @@ module S3
       @string_to_sign = string_to_sign
     end
 
-    def execute
+    def call
       sha1_digest = OpenSSL::Digest.new('sha1')
       hmac = OpenSSL::HMAC.digest(sha1_digest, @secret_access_key_id, @string_to_sign)
 

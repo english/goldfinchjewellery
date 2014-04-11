@@ -26,12 +26,12 @@ class News < ActiveRecord::Base
   private
 
   def delete_image
-    S3::Delete.new(image_path).execute
+    S3::Delete.new(image_path).call
   end
 
   def upload_image
     s3_image = S3::Put.new(image)
-    s3_image.execute
+    s3_image.call
     self.image_path = s3_image.url
   end
 end

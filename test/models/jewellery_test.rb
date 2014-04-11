@@ -10,7 +10,7 @@ class JewelleryTest < ActiveSupport::TestCase
 
   test "saving with an image will upload to S3 and persist its path" do
     image = image_upload_fixture
-    S3::Put.expects(:new).with(image).returns(OpenStruct.new(execute: nil, url: 'http://example.com/image.jpg'))
+    S3::Put.expects(:new).with(image).returns(OpenStruct.new(call: nil, url: 'http://example.com/image.jpg'))
 
     jewellery = Jewellery.create!(name: 'A jewellery item', description: 'A description of some jewellery', image: image)
 

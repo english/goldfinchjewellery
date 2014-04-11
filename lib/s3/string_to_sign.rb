@@ -8,7 +8,7 @@ module S3
       @content_md5 = content_md5
     end
 
-    def execute
+    def call
       [@verb, @content_md5, @content_type, @date, @canonicalized_resource].join("\n")
     end
   end
