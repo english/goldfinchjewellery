@@ -15,6 +15,10 @@ class News < ActiveRecord::Base
     all.group_by(&:category)
   end
 
+  def self.ordered
+    order(updated_at: :desc)
+  end
+
   def self.last_updated
     News.order('updated_at').last
   end

@@ -35,7 +35,7 @@ class NewsController < ApplicationController
 
       format.html do
         if logged_in?
-          @categorised_news = News.categorised
+          @categorised_news = News.ordered.categorised
         else
           redirect_to new_session_path
         end
