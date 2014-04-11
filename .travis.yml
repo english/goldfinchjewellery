@@ -3,8 +3,6 @@ language: ruby
 rvm: 2.1.1
 env:
   global:
-  - SECRET_KEY_BASE=73e30c01db3b0aa93357c57fb336034e05e8f02d5df3c35395747066dfb3d8e95513b4f2dff6e9d01ed2d629314fe65c51aab94dc0fd06e765cecf9733582398
-    RAILS_ENV=test
   - secure: |-
       ZTlJnBINivv9+2i2wM5oJ7bI0pzggVYjVWtS5bs2+/+h4T76Eut5LUG0z5Sh
       BYipinvu3iDEAcUsYt60fcsIBZURLEf4A9AjSvFkdeiq4WWSZH3YW+HnMugc
