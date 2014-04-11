@@ -61,7 +61,7 @@ class NewsControllerTest < ActionController::TestCase
     assert json["news"][0].has_key?("id")
     assert json["news"][0].has_key?("category")
     assert json["news"][0].has_key?("html")
-    assert json["news"][0].has_key?("updated_at")
+    assert json["news"][0].has_key?("updatedAt")
 
     assert_equal 4, json["news"][0].keys.count
   end
