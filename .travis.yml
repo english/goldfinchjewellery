@@ -11,4 +11,4 @@ env:
       h4jwOKVZdiv5a4BjuqzXzeL1eW4XBnN4yZ6CEXor7/rbVILM9FazuYyNWYi7
       5L/9AqF0Y3ivWE6kcGfawCfPXfj0pIHbTRSVwa5uK6FtNBwP8IIUxU3feC6P
       XUPdwWH9LR5g7g26FmWHe8QQEf7GfCRCoYDx7f5Qx/DPNwc4q14=
-before_script: rake db:migrate; rake db:test:prepare
+before_script: rake db:migrate db:test:prepare
