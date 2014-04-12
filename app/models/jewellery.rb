@@ -1,5 +1,3 @@
-require "s3/put"
-
 class Jewellery < ActiveRecord::Base
   attr_accessor :image
 

@@ -16,6 +16,8 @@ gem "newrelic_rpm"
 gem "thin"
 gem "redcarpet"
 
+gem "s3", github: "jamienglish/s3"
+
 group :development, :test do
   gem "sqlite3"
   gem "pry"

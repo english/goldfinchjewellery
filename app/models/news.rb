@@ -1,5 +1,3 @@
-require "s3/put"
-
 class News < ActiveRecord::Base
   CATEGORIES = ['Stockists', 'Events & Exhibitions', 'Awards', 'Press']
 
@@ -26,7 +24,7 @@ class News < ActiveRecord::Base
   private
 
   def delete_image
-    S3::Delete.new(image_path).call
+    s3_deleter.call(image_path)
   end
 
   def upload_image
@@ -35,5 +33,9 @@ class News < ActiveRecord::Base
 
   def s3_putter
     S3::Put
+  end
+
+  def s3_deleter
+    S3::Delete
   end
 end

@@ -1,3 +1,9 @@
+GIT
+  remote: git://github.com/jamienglish/s3.git
+  revision: da25911401b66bcdc95c81f058af021248938fb5
+  specs:
+    s3 (0.0.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -151,6 +157,7 @@ DEPENDENCIES
   rails (~> 4.1.0)
   rails_12factor
   redcarpet
+  s3!
   sass-rails (~> 4.0.0)
   spring
   sprockets-rails
