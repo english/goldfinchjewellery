@@ -39,10 +39,9 @@ class NewsControllerTest < ActionController::TestCase
 
   test ":create uploads an image to S3" do
     login
-    image = image_upload_fixture
-    S3::Put.expects(:new).with(image).returns(Struct.new(:call, :url).new)
+    S3::Put.expects(:new).with(image_upload_fixture).returns(Struct.new(:call, :url).new)
 
-    post :create, news: @valid_news_params.merge(image: image)
+    post :create, news: @valid_news_params.merge(image: image_upload_fixture)
   end
 
   test ":create with invalid attributes does not upload an image" do

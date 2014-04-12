@@ -17,7 +17,8 @@ class ActiveSupport::TestCase
   fixtures :all
 
   def image_upload_fixture
-    Rack::Test::UploadedFile.new(File.join(ActionController::TestCase.fixture_path, '/image.jpg'), 'image/jpeg')
+    path = File.join(ActionController::TestCase.fixture_path, '/image.jpg')
+    @image_upload_fixture ||= Rack::Test::UploadedFile.new(path, 'image/jpeg')
   end
 
   def login
@@ -26,5 +27,13 @@ class ActiveSupport::TestCase
 
   def logout
     session[:user_id] = nil
+  end
+
+  def stub(object, method_name, &block)
+    object.instance_eval do
+      self.define_singleton_method(method_name) do |param|
+        yield param
+      end
+    end
   end
 end

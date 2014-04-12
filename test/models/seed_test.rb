@@ -2,8 +2,7 @@ require 'test_helper'
 
 class SeedTest < ActiveSupport::TestCase
   def setup
-    image = image_upload_fixture
-    S3::Put.stubs(:new).returns(OpenStruct.new(call: nil, url: 'http://example.com/image.jpg'))
+    S3::Put.stubs(:new).returns(-> { 'http://example.com/image.jpg' })
   end
 
   def assert_not_empty(subject)

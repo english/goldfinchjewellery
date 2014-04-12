@@ -18,16 +18,13 @@ class NewsTest < ActiveSupport::TestCase
   end
 
   test "saving with an image will upload to S3 and persist its path" do
-    image_fixture = image_upload_fixture
-    news_item = News.new(content: 'Test news item', category: 'Stockists', image: image_fixture)
+    news_item = News.new(content: 'Test news item', category: 'Stockists', image: image_upload_fixture)
 
-    news_item.instance_eval do
-      define_singleton_method(:s3_putter) do |image|
-        message = "Expected #{image_fixture}, got #{image}"
-        raise Minitest::Assertion, message unless image_fixture == image
+    stub(news_item, :s3_putter) do |image|
+      message = "Expected #{image_upload_fixture}, got #{image}"
+      raise Minitest::Assertion, message unless image_upload_fixture == image
 
-        -> { "http://example.com/image.jpg" }
-      end
+      -> { "http://example.com/image.jpg" }
     end
 
     news_item.save!
