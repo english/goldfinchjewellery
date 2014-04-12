@@ -30,10 +30,10 @@ class News < ActiveRecord::Base
   end
 
   def upload_image
-    self.image_path = s3_putter(image).call
+    self.image_path = s3_putter.call(image)
   end
 
-  def s3_putter(file)
-    S3::Put.new(file)
+  def s3_putter
+    S3::Put
   end
 end

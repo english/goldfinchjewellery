@@ -1,8 +1,22 @@
 require 'test_helper'
 
 class SeedTest < ActiveSupport::TestCase
+  # Don't upload images
   def setup
-    S3::Put.stubs(:new).returns(-> { 'http://example.com/image.jpg' })
+    class << S3::Put
+      alias_method :original_call, :call
+      def call(arg)
+        'http://example.com/image.jpg'
+      end
+    end
+  end
+
+  def teardown
+    class << S3::Put
+      undef_method :call
+      alias_method :call, :original_call
+      undef_method :original_call
+    end
   end
 
   def assert_not_empty(subject)

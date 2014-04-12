@@ -1,32 +1,38 @@
-require "s3/string_to_sign"
-require "s3/signature"
-
 module S3
   class Delete
-    def initialize(url)
+    def self.call(url)
+      new(url).call
+    end
+
+    attr_reader :uri, :config
+
+    def initialize(url, config: S3.configuration)
       @uri = URI(url)
-      @access_key_id = ENV['AWS_ACCESS_KEY_ID']
-      @secret_access_key_id = ENV['AWS_SECRET_ACCESS_KEY']
+      @config = config
     end
 
     def call
-      http = Net::HTTP.new(@uri.host)
-      request = Net::HTTP::Delete.new(@uri.path)
-      request['Date'] = Time.now.httpdate
-      request['Authorization'] = "AWS #{@access_key_id}:#{signature}"
+      http = Net::HTTP.new(uri.host)
+      request = Net::HTTP::Delete.new(uri.path)
+      request.initialize_http_header(headers)
       response = http.request(request)
 
-      raise "Something went wrong: #{response.body}" unless response.code.starts_with?('2')
+      raise S3Error, response.body unless response.code.starts_with?('2')
     end
 
     private
 
+    def headers
+      { 'Date'          => Time.now.httpdate,
+        'Authorization' => "AWS #{config.access_key_id}:#{signature}" }
+    end
+
     def signature
-      S3::Signature.new(@secret_access_key_id, string_to_sign).call
+      S3::Signature.new(string_to_sign).call
     end
 
     def string_to_sign
-      canonicalized_resource = "/goldfinchjewellery#{@uri.path}"
+      canonicalized_resource = "/goldfinchjewellery#{uri.path}"
       S3::StringToSign.new(canonicalized_resource, verb: 'DELETE').call
     end
   end

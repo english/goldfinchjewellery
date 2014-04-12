@@ -29,10 +29,12 @@ class ActiveSupport::TestCase
     session[:user_id] = nil
   end
 
-  def stub(object, method_name, &block)
-    object.instance_eval do
-      self.define_singleton_method(method_name) do |param|
-        yield param
+  def stub(object, method_name)
+    Object.new.tap do |mock|
+      mock.define_singleton_method(:to_return) do |return_value|
+        object.define_singleton_method(method_name) do
+          return_value
+        end
       end
     end
   end

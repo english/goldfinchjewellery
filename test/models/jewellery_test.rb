@@ -11,12 +11,14 @@ class JewelleryTest < ActiveSupport::TestCase
   test "saving with an image will upload to S3 and persist its path" do
     jewellery = Jewellery.new(name: 'A jewellery item', description: 'A description of some jewellery', image: image_upload_fixture)
 
-    stub(jewellery, :s3_putter) do |image|
+    fake_s3_putter = -> (image) {
       message = "Expected #{image_upload_fixture}, got #{image}"
       raise Minitest::Assertion, message unless image_upload_fixture == image
 
-      -> { "http://example.com/image.jpg" }
-    end
+      "http://example.com/image.jpg"
+    }
+
+    stub(jewellery, :s3_putter).to_return(fake_s3_putter)
 
     jewellery.save!
 
