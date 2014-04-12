@@ -1,15 +1,13 @@
 module S3
   class Put
+    REGION = 's3-eu-west-1'
+    HOST   = 'amazonaws.com'
+
     def self.call(file)
       new(file).call
     end
 
     attr_reader :file, :config
-
-    BUCKET = 'goldfinchjewellery'
-    REGION = 's3-eu-west-1'
-    HOST   = 'amazonaws.com'
-    DOMAIN = [BUCKET, REGION, HOST].join('.')
 
     def initialize(file, config: S3.configuration)
       @file = file
@@ -17,7 +15,7 @@ module S3
     end
 
     def call
-      http = Net::HTTP.new(DOMAIN)
+      http = Net::HTTP.new(domain)
       request = Net::HTTP::Put.new(path)
       request.initialize_http_header(headers)
       request.body_stream = File.open(file.path)
@@ -32,7 +30,7 @@ module S3
     private
 
     def url
-      "http://#{DOMAIN}/#{file.original_filename}"
+      "http://#{domain}/#{file.original_filename}"
     end
 
     def headers
@@ -62,8 +60,12 @@ module S3
     end
 
     def string_to_sign
-      canonicalized_resource = "/#{BUCKET}/#{file.original_filename}"
+      canonicalized_resource = "/#{config.bucket}/#{file.original_filename}"
       S3::StringToSign.new(canonicalized_resource, verb: 'PUT', content_type: content_type).call
+    end
+
+    def domain
+      [config.bucket, REGION, HOST].join('.')
     end
   end
 end

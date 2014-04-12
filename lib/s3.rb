@@ -6,7 +6,7 @@ require "s3/delete"
 module S3
   class S3Error < StandardError; end
 
-  Configuration = Struct.new(:access_key_id, :secret_access_key_id)
+  Configuration = Struct.new(:access_key_id, :secret_access_key_id, :bucket)
 
   def self.configuration
     @configuration ||= Configuration.new

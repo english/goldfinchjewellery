@@ -32,7 +32,7 @@ module S3
     end
 
     def string_to_sign
-      canonicalized_resource = "/goldfinchjewellery#{uri.path}"
+      canonicalized_resource = "/#{config.bucket}#{uri.path}"
       S3::StringToSign.new(canonicalized_resource, verb: 'DELETE').call
     end
   end
