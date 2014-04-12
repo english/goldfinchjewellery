@@ -18,36 +18,34 @@ class NewsControllerTest < ActionController::TestCase
     assert_redirected_to new_session_path
   end
 
-  test ":create creates a new news item" do
-    login
-    assert_difference 'News.count', 1 do
-      post :create, news: @valid_news_params
-    end
-    assert_redirected_to root_path
-  end
-
-  test ":create with invalid post data will redirect to :new with error message" do
-    login
-    assert_no_difference 'News.count' do
-      post :create, news: { foo: 'bar' }
-    end
-    assert_response 400
-    assert_template 'news/new'
-    assert_select '.error', "Content: can&#39;t be blank"
-    assert_select '.error', "Category: can&#39;t be blank, is not included in the list"
-  end
-
   test ":create uploads an image to S3" do
     login
-    S3::Put.expects(:new).with(image_upload_fixture).returns(Struct.new(:call, :url).new)
 
-    post :create, news: @valid_news_params.merge(image: image_upload_fixture)
+    called = false
+    fake_s3_putter = -> (image) {
+      assert_equal image_upload_fixture, image
+      called = true
+    }
+
+    stub(@controller, :s3_putter).to_return(fake_s3_putter)
+
+    assert_difference 'News.count', 1 do
+      post :create, news: @valid_news_params.merge(image: image_upload_fixture)
+    end
+
+    assert called
   end
 
   test ":create with invalid attributes does not upload an image" do
     login
-    S3::Put.expects(:new).never
-    post :create, news: @valid_news_params.except(:content)
+
+    def @controller.s3_putter
+      raise "I should not have been called"
+    end
+
+    assert_no_difference 'News.count' do
+      post :create, news: @valid_news_params.except(:content)
+    end
 
     assert_response 400
   end
@@ -76,28 +74,20 @@ class NewsControllerTest < ActionController::TestCase
     assert_redirected_to new_session_path
   end
 
-  test ":destroy deletes news" do
-    login
-
-    news = mock('news')
-    News.stubs(:find).returns(news)
-    news.expects(:destroy)
-
-    delete :destroy, id: 1
-
-    assert_redirected_to root_path
-  end
-
   test ":destroy deletes S3 image" do
     login
 
     news_item = news(:press)
-    news_item.update_attributes(image_path: 'http://example.org/image.jpg')
-    News.stubs(:find).returns(news_item)
+    news_item.update_attributes!(image_path: 'http://example.org/image.jpg')
 
-    S3::Delete.any_instance.expects(:call)
+    called = false
+    fake_deleter = -> (path) {
+      called = true
+      assert_equal 'http://example.org/image.jpg', path
+    }
+    stub(@controller, :s3_deleter).to_return(fake_deleter)
 
-    delete :destroy, id: 1
+    delete :destroy, id: news(:press).id
   end
 
   test "cannot destroy without being logged in" do

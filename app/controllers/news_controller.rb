@@ -7,9 +7,11 @@ class NewsController < ApplicationController
   end
 
   def create
-    @news = News.new(news_params)
+    @news = News.new(news_params.except(:image))
 
-    if @news.save
+    if @news.valid?
+      @news.image_path = s3_putter.call(news_params.require(:image))
+      @news.save!
       redirect_to root_path, notice: 'News Item saved successfully'
     else
       render :new, status: :bad_request
@@ -44,7 +46,10 @@ class NewsController < ApplicationController
   end
 
   def destroy
-    News.find(params[:id]).destroy
+    news_item = News.find(params[:id])
+    s3_deleter.call(news_item.image_path)
+    news_item.destroy
+
     redirect_to root_path, notice: 'News Item deleted successfully'
   end
 
@@ -56,5 +61,13 @@ class NewsController < ApplicationController
 
   def set_categories
     @categories = News::CATEGORIES
+  end
+
+  def s3_putter
+    S3::Put
+  end
+
+  def s3_deleter
+    S3::Delete
   end
 end

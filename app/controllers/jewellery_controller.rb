@@ -19,15 +19,19 @@ class JewelleryController < ApplicationController
   end
 
   def destroy
-    Jewellery.destroy(params[:id])
+    jewellery = Jewellery.find(params[:id])
+    s3_deleter.call(jewellery.image_path)
+    jewellery.destroy
     redirect_to jewellery_index_path
   end
 
   def create
-    @jewellery = Jewellery.new(jewellery_params)
+    @jewellery = Jewellery.new(jewellery_params.except(:image))
 
-    if @jewellery.save
-      redirect_to jewellery_index_path
+    if @jewellery.valid?
+      @jewellery.image_path = s3_putter.call(jewellery_params.require(:image))
+      @jewellery.save!
+      redirect_to jewellery_index_path, notice: 'Jewellery Item saved successfully'
     else
       render :new
     end
@@ -41,5 +45,13 @@ class JewelleryController < ApplicationController
 
   def jewellery_params
     params.require(:jewellery).permit(:name, :description, :gallery, :image)
+  end
+
+  def s3_putter
+    S3::Put
+  end
+
+  def s3_deleter
+    S3::Delete
   end
 end

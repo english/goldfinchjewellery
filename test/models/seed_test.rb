@@ -5,9 +5,7 @@ class SeedTest < ActiveSupport::TestCase
   def setup
     class << S3::Put
       alias_method :original_call, :call
-      def call(arg)
-        'http://example.com/image.jpg'
-      end
+      def call(arg); 'http://example.com/image.jpg'; end
     end
   end
 

@@ -8,7 +8,7 @@ class Seed
         description = description_for(path)
         name        = File.basename(path, '.jpg').titleize
 
-        Jewellery.create(gallery: gallery.titleize, image: image, description: description, name: name)
+        Jewellery.create(gallery: gallery.titleize, description: description, name: name)
       end
     end
   end

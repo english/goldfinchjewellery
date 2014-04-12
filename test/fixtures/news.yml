@@ -1,23 +1,29 @@
 craftsman_and_design_awards:
   content: Craftsmanship and Design Awards 2011
   category: Events & Exhibitions
+  image_path: http://example.com/image.jpg
 
 spirit_exhibition:
   content: Spirit exhibition at Heart Gallery, The Arts Centre
   category: Events & Exhibitions
+  image_path: http://example.com/image.jpg
 
 stockist:
   content: New stockist at Red Barn Gallery, Milnthorpe
   category: Stockists
+  image_path: http://example.com/image.jpg
 
 c_and_d_council:
   content: Goldsmiths’ Craft and Design Council
   category: Awards
+  image_path: http://example.com/image.jpg
 
 bja:
   content: British Jewellers’ Association, 2002
   category: Awards
+  image_path: http://example.com/image.jpg
 
 press:
   content: In the press
   category: Press
+  image_path: test-image.jpg

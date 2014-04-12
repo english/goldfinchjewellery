@@ -16,20 +16,4 @@ class NewsTest < ActiveSupport::TestCase
 
     assert_equal newest, News.last_updated
   end
-
-  test "saving with an image will upload to S3 and persist its path" do
-    news_item = News.new(content: 'Test news item', category: 'Stockists', image: image_upload_fixture)
-    fake_s3_putter = -> (image) {
-      message = "Expected #{image_upload_fixture}, got #{image}"
-      raise Minitest::Assertion, message unless image_upload_fixture == image
-
-      "http://example.com/image.jpg"
-    }
-
-    stub(news_item, :s3_putter).to_return(fake_s3_putter)
-
-    news_item.save!
-
-    assert_equal "http://example.com/image.jpg", news_item.image_path
-  end
 end
