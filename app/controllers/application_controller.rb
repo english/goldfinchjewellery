@@ -11,4 +11,8 @@ class ApplicationController < ActionController::Base
   def authenticate
     redirect_to new_session_path unless logged_in?
   end
+
+  def set_cors_headers
+    response.headers["Access-Control-Allow-Origin"] = "*"
+  end
 end

@@ -3,24 +3,23 @@ require "s3/put"
 
 class JewelleryControllerTest < ActionController::TestCase
   def setup
-    @valid_jewellery_params = { name: 'Robin', description: 'test description', gallery: 'Birds', image: image_upload_fixture }
+    @valid_jewellery_params = {
+      name: 'Robin', description: 'test description', gallery: 'Birds', image: image_upload_fixture
+    }
   end
 
-  test ":index via json allows CORS" do
-    get :index, format: :json
-    assert_equal "*", response["Access-Control-Allow-Origin"]
+  def json_body
+    JSON.parse(response.body)
   end
 
   test ":index via json" do
     get :index, format: :json
     assert_response :success
 
-    json = JSON.parse(response.body)
-
-    assert_equal %w( jewellery ), json.keys
-
-    expected_keys = %w( id name description gallery image_path created_at updated_at )
-    assert_equal expected_keys.sort, json["jewellery"][0].keys.sort
+    assert_equal "*", response["Access-Control-Allow-Origin"]
+    assert_equal %w( jewellery ), json_body.keys
+    assert_equal %w( id name description gallery image_path created_at updated_at ).sort,
+                 json_body["jewellery"].first.keys.sort
   end
 
   test ":index requires login" do
@@ -38,40 +37,31 @@ class JewelleryControllerTest < ActionController::TestCase
 
   test ":destroy deletes" do
     session[:user_id] = users(:someone).id
+    jewellery = Jewellery.last
 
-    def @controller.s3_deleter
-      -> (path) {}
-    end
+    S3::Delete.expects(:call).with(jewellery.image_path)
 
     assert_difference "Jewellery.count", -1 do
-      delete :destroy, id: Jewellery.last.id
+      delete :destroy, id: jewellery.id
     end
   end
 
   test ":create persists a jewellery item" do
     session[:user_id] = users(:someone).id
 
-    called = false
-    fake_putter = -> (image) {
-      called = true
-      assert_equal image_upload_fixture, image
-    }
-    stub(@controller, :s3_putter).to_return(fake_putter)
+    S3::Put.expects(:call).with(image_upload_fixture)
 
     assert_difference 'Jewellery.count', 1 do
       post :create, jewellery: @valid_jewellery_params
     end
 
-    assert called
     assert_redirected_to jewellery_index_path
   end
 
   test ":create with missing params" do
     session[:user_id] = users(:someone).id
 
-    def @controller.s3_putter
-      raise "I should not have been called"
-    end
+    S3::Put.expects(:call).never
 
     assert_no_difference 'Jewellery.count' do
       post :create, jewellery: @valid_jewellery_params.except(:name)
@@ -81,11 +71,9 @@ class JewelleryControllerTest < ActionController::TestCase
   end
 
   test ":create with invalid attributes does not upload an image" do
-    def @controller.s3_putter
-      raise "I should not have been called"
-    end
-
     session[:user_id] = users(:someone).id
+
+    S3::Put.expects(:call).never
 
     post :create, jewellery: @valid_jewellery_params.except(:description)
   end

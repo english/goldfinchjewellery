@@ -4,10 +4,16 @@ require "s3/delete"
 class NewsControllerTest < ActionController::TestCase
   def setup
     @valid_news_params = { content: 'Test news item', category: 'Stockists' }
+    @valid_news_params_with_image = @valid_news_params.merge(image: image_upload_fixture)
+  end
+
+  def json_body
+    @json ||= JSON.parse(response.body)
   end
 
   test ":new sets a new empty News" do
     login
+
     get :new
     assert_kind_of News, assigns(:news)
     assert assigns(:news).new_record?
@@ -21,30 +27,20 @@ class NewsControllerTest < ActionController::TestCase
   test ":create uploads an image to S3" do
     login
 
-    called = false
-    fake_s3_putter = -> (image) {
-      assert_equal image_upload_fixture, image
-      called = true
-    }
-
-    stub(@controller, :s3_putter).to_return(fake_s3_putter)
+    S3::Put.expects(:call).with(image_upload_fixture)
 
     assert_difference 'News.count', 1 do
-      post :create, news: @valid_news_params.merge(image: image_upload_fixture)
+      post :create, news: @valid_news_params_with_image
     end
-
-    assert called
   end
 
   test ":create with invalid attributes does not upload an image" do
     login
 
-    def @controller.s3_putter
-      raise "I should not have been called"
-    end
+    S3::Put.expects(:call).never
 
     assert_no_difference 'News.count' do
-      post :create, news: @valid_news_params.except(:content)
+      post :create, news: @valid_news_params_with_image.except(:content)
     end
 
     assert_response 400
@@ -53,20 +49,14 @@ class NewsControllerTest < ActionController::TestCase
   test ":index lists all news items" do
     get :index, format: :json
 
-    json = JSON.parse(response.body)
-
-    assert_equal News.count, json["news"].count
-    assert json["news"][0].has_key?("id")
-    assert json["news"][0].has_key?("category")
-    assert json["news"][0].has_key?("html")
-    assert json["news"][0].has_key?("updatedAt")
-
-    assert_equal 4, json["news"][0].keys.count
-  end
-
-  test ":index via json allows CORS" do
-    get :index, format: :json
     assert_equal "*", response["Access-Control-Allow-Origin"]
+    assert_equal News.count, json_body["news"].count
+    assert json_body["news"][0].has_key?("id")
+    assert json_body["news"][0].has_key?("category")
+    assert json_body["news"][0].has_key?("html")
+    assert json_body["news"][0].has_key?("updatedAt")
+
+    assert_equal 4, json_body["news"][0].keys.count
   end
 
   test ":index via html requires login" do
@@ -77,15 +67,7 @@ class NewsControllerTest < ActionController::TestCase
   test ":destroy deletes S3 image" do
     login
 
-    news_item = news(:press)
-    news_item.update_attributes!(image_path: 'http://example.org/image.jpg')
-
-    called = false
-    fake_deleter = -> (path) {
-      called = true
-      assert_equal 'http://example.org/image.jpg', path
-    }
-    stub(@controller, :s3_deleter).to_return(fake_deleter)
+    S3::Delete.expects(:call).with(news(:press).image_path)
 
     delete :destroy, id: news(:press).id
   end

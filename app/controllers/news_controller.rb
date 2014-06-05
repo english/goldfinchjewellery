@@ -1,6 +1,6 @@
 class NewsController < ApplicationController
   before_action :authenticate, except: :index
-  before_action :set_categories, only: %i( new create )
+  before_action :set_cors_headers, only: :index
 
   def new
     @news = News.new
@@ -8,46 +8,31 @@ class NewsController < ApplicationController
 
   def create
     @news = News.new(news_params.except(:image))
+    render :new, status: :bad_request and return unless @news.valid?
 
-    if @news.valid?
-      @news.image_path = s3_putter.call(news_params.require(:image))
-      @news.save!
-      redirect_to root_path, notice: 'News Item saved successfully'
-    else
-      render :new, status: :bad_request
-    end
+    @news.image_path = S3::Put.call(news_params.require(:image))
+    @news.save!
+
+    redirect_to root_path, notice: 'News Item saved successfully'
   end
 
   def index
     respond_to do |format|
       format.json do
-        response.headers["Access-Control-Allow-Origin"] = "*"
-
-        render json: {
-          news: News.all.map { |news_item|
-            {
-              id: news_item.id,
-              category: news_item.category,
-              html: render_to_string(partial: "news/news_item.html.erb", locals: { news_item: news_item, admin: false }),
-              updatedAt: news_item.updated_at
-            }
-          }
-        }
+        render json: { news: News.all.map(&method(:render_news_item)) }
       end
 
       format.html do
-        if logged_in?
-          @categorised_news = News.ordered.categorised
-        else
-          redirect_to new_session_path
-        end
+        redirect_to new_session_path and return unless logged_in?
+        @categorised_news = News.ordered.categorised
       end
     end
   end
 
   def destroy
     news_item = News.find(params[:id])
-    s3_deleter.call(news_item.image_path)
+
+    S3::Delete.call(news_item.image_path)
     news_item.destroy
 
     redirect_to root_path, notice: 'News Item deleted successfully'
@@ -55,19 +40,16 @@ class NewsController < ApplicationController
 
   private
 
+  def render_news_item(news_item)
+    {
+      id:        news_item.id,
+      category:  news_item.category,
+      html:      render_to_string(partial: "news/news_item.html.erb", locals: { news_item: news_item }),
+      updatedAt: news_item.updated_at
+    }
+  end
+
   def news_params
     params.require(:news).permit(%i( content category image ))
-  end
-
-  def set_categories
-    @categories = News::CATEGORIES
-  end
-
-  def s3_putter
-    S3::Put
-  end
-
-  def s3_deleter
-    S3::Delete
   end
 end

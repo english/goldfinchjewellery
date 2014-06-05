@@ -1,6 +1,7 @@
 ENV["RAILS_ENV"] = "test"
-require File.expand_path('../../config/environment', __FILE__)
-require 'rails/test_help'
+require File.expand_path("../../config/environment", __FILE__)
+require "rails/test_help"
+require "mocha/mini_test"
 
 class ActiveSupport::TestCase
   # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
@@ -20,15 +21,5 @@ class ActiveSupport::TestCase
 
   def logout
     session[:user_id] = nil
-  end
-
-  def stub(object, method_name)
-    Object.new.tap do |mock|
-      mock.define_singleton_method(:to_return) do |return_value|
-        object.define_singleton_method(method_name) do
-          return_value
-        end
-      end
-    end
   end
 end

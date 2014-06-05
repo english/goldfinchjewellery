@@ -18,6 +18,8 @@ gem "redcarpet"
 
 gem "s3", github: "jamienglish/s3"
 
+gem "mocha", group: :test, require: false
+
 group :development, :test do
   gem "sqlite3"
   gem "pry"
