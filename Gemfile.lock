@@ -106,6 +106,8 @@ GEM
       sass (~> 3.2.0)
       sprockets (~> 2.8, <= 2.11.0)
       sprockets-rails (~> 2.0)
+    skylight (0.3.14)
+      activesupport (>= 3.0.0)
     slop (3.5.0)
     spring (1.1.2)
     sprockets (2.11.0)
@@ -151,6 +153,7 @@ DEPENDENCIES
   redcarpet
   s3!
   sass-rails (~> 4.0.0)
+  skylight
   spring
   sprockets-rails
   sqlite3
